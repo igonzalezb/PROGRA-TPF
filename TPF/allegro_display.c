@@ -40,14 +40,14 @@ int allegro_display_main(void)
 
 
 
-	icon = al_load_bitmap("simon_icon.png");
+	icon = al_load_bitmap("resources/simon_icon.png");
 	if (!icon) {
 		fprintf(stderr, "Failed to create icon!\n");
 		al_destroy_display(display);
 		return -1;
 	}
 
-	simon = al_load_bitmap("simon_all_off.png");
+	simon = al_load_bitmap("resources/simon_all_off.png");
 	if (!simon) {
 		fprintf(stderr, "Failed to create welcome!\n");
 		al_destroy_display(display);

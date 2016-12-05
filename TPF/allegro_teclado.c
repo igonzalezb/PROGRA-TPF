@@ -35,35 +35,35 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		return -1;
 	}
 
-	led_red_on = al_load_bitmap("simon_red_on.png");
+	led_red_on = al_load_bitmap("resources/simon_red_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
 		return -1;
 	}
 
-	led_blue_on = al_load_bitmap("simon_blue_on.png");
+	led_blue_on = al_load_bitmap("resources/simon_blue_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
 		return -1;
 	}
 
-	led_green_on = al_load_bitmap("simon_green_on.png");
+	led_green_on = al_load_bitmap("resources/simon_green_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
 		return -1;
 	}
 
-	led_yellow_on = al_load_bitmap("simon_yellow_on.png");
+	led_yellow_on = al_load_bitmap("resources/simon_yellow_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
 		return -1;
 	}
 
-	led_button_off = al_load_bitmap("simon_button_off.png");
+	led_button_off = al_load_bitmap("resources/simon_button_off.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create button!\n");
 		//destroy
