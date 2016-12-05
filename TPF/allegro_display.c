@@ -38,8 +38,6 @@ int allegro_display_main(void)
 		return -1;
 	}
 
-
-
 	icon = al_load_bitmap("resources/simon_icon.png");
 	if (!icon) {
 		fprintf(stderr, "Failed to create icon!\n");
@@ -49,11 +47,14 @@ int allegro_display_main(void)
 
 	simon = al_load_bitmap("resources/simon_all_off.png");
 	if (!simon) {
-		fprintf(stderr, "Failed to create welcome!\n");
+		fprintf(stderr, "Failed to create simon!\n");
 		al_destroy_display(display);
 		al_destroy_bitmap(icon);
 		return -1;
 	}
+
+	
+
 
 	
 
@@ -64,6 +65,12 @@ int allegro_display_main(void)
 	al_set_display_icon(display, icon);  //Icono del programa
 
 //=========================================================================================================
+	if (allegro_welcome(display))
+	{
+		fprintf(stderr, "Failed allegro_welcome!\n");
+		return -1;
+	}
+	
 	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
 	allegro_draw_bitmap_center(simon, display);
@@ -81,5 +88,30 @@ int allegro_display_main(void)
 
 void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)
 {
-	al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
+	//al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
+
+	al_draw_scaled_bitmap(bitmap,
+		0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), //imagen
+		0, 0, al_get_display_width(display), al_get_display_height(display), // TE LO DIBUJA DEL TAMAÑO DEL DISPLAY ACTUAL
+		0);
+}
+
+
+int allegro_welcome(ALLEGRO_DISPLAY * display)
+{
+	ALLEGRO_BITMAP *menu_simon = NULL;
+//=====================================================================================================================================================================
+	menu_simon = al_load_bitmap("resources/menu_simon.png");
+	if (!menu_simon) {
+		fprintf(stderr, "Failed to create menu_simon!\n");
+		return -1;
+	}
+//======================================================================================================================================================================
+	allegro_draw_bitmap_center(menu_simon, display);
+
+	al_flip_display();
+
+	al_rest(2.0);
+
+	return 0;
 }

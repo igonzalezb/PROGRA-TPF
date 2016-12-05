@@ -7,11 +7,11 @@
 #define HAVE_STRUCT_TIMESPEC	//SOLO PARA QUE ME ANDE (iña)THREADS EN WINDOWS
 #include <pthread.h>
 
-//int platform; //en algun momento al principio de todo, esto se iguala a allegro o a raspberryPi
-enum platforms { allegro, raspberryPi };
-enum colores { RED, GREEN, BLUE, YELLOW };
 
-#define	ALLEGRO 1
+enum PLATFORMS { ALLEGRO, RASPBERRYPI };
+enum COLORES { RED, GREEN, BLUE, YELLOW };
+
+//#define	ALLEGRO 1
 
 #define ON      1
 #define OFF     0

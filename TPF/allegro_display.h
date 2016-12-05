@@ -22,7 +22,11 @@ int allegro_display_main(void);
 
 int allegro_setup();
 
+void allegro_uninstall();
+
 void allegro_draw_bitmap_center(ALLEGRO_BITMAP * , ALLEGRO_DISPLAY * );
+
+int allegro_welcome(ALLEGRO_DISPLAY * display);
 
 #endif // !ALLEGRO_DISPLAY_H
 

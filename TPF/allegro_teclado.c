@@ -69,6 +69,8 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		//destroy
 		return -1;
 	}
+
+
 //=========================================================================================================
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -82,7 +84,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
-		if (ev.type == ALLEGRO_EVENT_TIMER)		//PONER EN CADA IF LO QUE TIENE QUE HACER (LLAMAR A VALIDACION CON ESA TECLA)
+		//if (ev.type == ALLEGRO_EVENT_TIMER)		//PONER EN CADA IF LO QUE TIENE QUE HACER (LLAMAR A VALIDACION CON ESA TECLA)
 		{
 			//if (key_pressed[KEY_SPACE])
 			//	//Restart GAME
@@ -117,7 +119,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 			//redraw = true;
 		} //Nose para que sirve
 
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			do_exit = true;
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 		{
@@ -137,7 +139,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 
 				case ALLEGRO_KEY_UP:
 					key_pressed[KEY_UP] = true;
-					allegro_draw_bitmap_center(led_yellow_on, display);
+					allegro_draw_bitmap_center(led_green_on, display);
 					al_flip_display();
 					printf("UP\n");
 					//validacion
@@ -153,7 +155,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 
 				case ALLEGRO_KEY_LEFT:
 					key_pressed[KEY_LEFT] = true;
-					allegro_draw_bitmap_center(led_green_on, display);
+					allegro_draw_bitmap_center(led_yellow_on, display);
 					al_flip_display();
 					printf("LEFT\n");
 					//validacion
