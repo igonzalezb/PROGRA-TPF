@@ -6,14 +6,14 @@ int allegro_setup()
 		fprintf(stderr, "Failed to initialize allegro!\n");
 		return -1;
 	}
-	if (!al_init_image_addon()) { // Inicializo ADDON de las imagenes
-		fprintf(stderr, "failed to initialize image addon !\n");
+	if (!al_init_image_addon()) {
+		fprintf(stderr, "Failed to initialize image addon !\n");
 		al_uninstall_system();
 		return -1;
 	}
 
-	if (!al_install_keyboard()) {    //Inicializo el teclado
-		fprintf(stderr, "failed to initialize the keyboard!\n");
+	if (!al_install_keyboard()) { 
+		fprintf(stderr, "Failed to initialize the keyboard!\n");
 		al_uninstall_system();
 		al_shutdown_image_addon();
 		return -1;
@@ -21,7 +21,7 @@ int allegro_setup()
 
 	if (!al_install_mouse())
 	{
-		fprintf(stderr, "failed to initialize mouse!\n");
+		fprintf(stderr, "Failed to initialize mouse!\n");
 		al_shutdown_image_addon();
 		al_uninstall_system();
 		al_uninstall_keyboard();
@@ -30,7 +30,7 @@ int allegro_setup()
 
 	if (!al_init_primitives_addon())
 	{
-		fprintf(stderr, "failed to initialize the primitives!\n");
+		fprintf(stderr, "Failed to initialize the primitives!\n");
 		al_shutdown_image_addon();
 		al_uninstall_keyboard();
 		al_uninstall_system();
@@ -45,7 +45,7 @@ void allegro_uninstall()
 {
 	al_shutdown_image_addon();
 	al_uninstall_keyboard();
-	al_uninstall_system();
 	al_uninstall_mouse();
 	al_shutdown_primitives_addon();
+	al_uninstall_system();
 }

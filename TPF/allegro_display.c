@@ -15,6 +15,10 @@ int allegro_display_main(void)
 
 	ALLEGRO_BITMAP *icon = NULL;
 
+	ALLEGRO_BITMAP *cursor_image = NULL;
+
+	ALLEGRO_MOUSE_CURSOR *cursor;
+
 	ALLEGRO_DISPLAY_MODE   disp_data;
 
 //=====================================================================================================
@@ -52,10 +56,36 @@ int allegro_display_main(void)
 		al_destroy_bitmap(icon);
 		return -1;
 	}
+	cursor_image = al_load_bitmap("resources/cursor.png");
+	if (!cursor_image) {
+		fprintf(stderr, "Failed to create simon!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(simon);
+		return -1;
+	}
 
+//==================================CUSTOM-MOUSE=========================================================
+	cursor = al_create_mouse_cursor(cursor_image, 0, 0);
+	if (!cursor) {
+		fprintf(stderr, "Failed to create simon!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(simon);
+		al_destroy_bitmap(cursor_image);
+		return -1;
+	}
 	
 
-
+	if (!al_set_mouse_cursor(display, cursor))
+	{
+		fprintf(stderr, "Failed to create simon!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(simon);
+		al_destroy_bitmap(cursor_image);
+		return -1;
+	}
 	
 
 //=========================================================================================================
@@ -73,9 +103,9 @@ int allegro_display_main(void)
 	
 	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
-	allegro_draw_bitmap_center(simon, display);
+	//allegro_draw_bitmap_center(simon, display);
 
-	al_flip_display();		//Actualizo Pantalla
+	//al_flip_display();		//Actualizo Pantalla
 	
 	allegro_teclado_main(display, simon);
 
@@ -111,7 +141,10 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)
 
 	al_flip_display();
 
-	al_rest(2.0);
+	//al_rest(2.0);
+	
+	//HAY QUE PONER QUE CON ENTER O APRETANDO PLAY EMPIEZE EL JUEGO
+
 
 	return 0;
 }

@@ -76,6 +76,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_start_timer(timer);
 
@@ -125,16 +126,25 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		{
 			al_flip_display();
 		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+		{
+
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+		{
+
+		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
 			switch (ev.keyboard.keycode) 
 			{
 				case ALLEGRO_KEY_SPACE:
 					key_pressed[KEY_SPACE] = true;
-					allegro_draw_bitmap_center(led_button_off, display);
+					allegro_draw_bitmap_center(simon, display);
+					//allegro_draw_bitmap_center(led_button_off, display);
 					al_flip_display();
 					printf("SPACE\n");
-					//validacion
+					//RESTART GAME
 					break;
 
 				case ALLEGRO_KEY_UP:
