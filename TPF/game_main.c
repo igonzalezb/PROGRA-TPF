@@ -8,15 +8,11 @@
 // hacer el timer
 
 #include "game_main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "hardware.h"
+#include "main.h"
 
-enum platforms {allegro,raspberryPi};
-enum colores {RED, GREEN, BLUE, YELLOW};
+//#include "hardware.h"
 
-#define         ON      1
-#define         OFF     0
+
 
 int configuration_start (int platform);
 int configuration_start (int platform);
@@ -24,11 +20,8 @@ void carga_secuencia_colores (int []); //ver si dejar int [] o si queda mejor in
 void* muestra_secuencia(int secuencia[], int level, int platform, double time_color_on, double time_color_off);
 void* timer (int);
 
-int platform; //en algun momento al principio de todo, esto se iguala a allegro o a raspberryPi
 
 
-////////////    ///////////     //////////      /////////     /////////
-int platform; //en algun momento al principio de todo, esto se iguala a allegro o a raspberryPi
 
 int configuration_start (platform) //poner que devuelva indicacion de exito o error.
 {
@@ -38,6 +31,7 @@ int configuration_start (platform) //poner que devuelva indicacion de exito o er
             break;
             
         case raspberryPi:
+		//pinstT le falta typedef o algo asi porque no existe
             pinsT leds[] = {{"RED","4","out","OFF","OFF"}, //VERRRR los "OFF"
                 {"GREEN","17","out","OFF","OFF"},
                 {"BLUE","18","out","OFF","OFF"},
