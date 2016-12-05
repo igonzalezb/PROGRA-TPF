@@ -31,3 +31,12 @@
 # Debug files
 *.dSYM/
 *.su
+*.suo
+*.db
+*.sln
+*.filters
+*.vcxproj
+*.opendb
+/TPF/packages
+*.config
+/TPF/Debug
