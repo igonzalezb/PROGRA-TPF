@@ -127,19 +127,67 @@ void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * displ
 }
 
 
-int allegro_welcome(ALLEGRO_DISPLAY * display)
+int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 {
 	ALLEGRO_BITMAP *menu_simon = NULL;
+
+	ALLEGRO_BITMAP *menu_simon_play = NULL;
+
+	ALLEGRO_MOUSE_STATE mouse_state;
+
+	bool on_button = false;
+
+	bool play = false;
+
+	ALLEGRO_KEYBOARD_STATE kst;
+
 //=====================================================================================================================================================================
 	menu_simon = al_load_bitmap("resources/menu_simon.png");
 	if (!menu_simon) {
 		fprintf(stderr, "Failed to create menu_simon!\n");
 		return -1;
 	}
+
+	menu_simon_play = al_load_bitmap("resources/menu_simon_play.png");
+	if (!menu_simon_play) {
+		fprintf(stderr, "Failed to create menu_simon_play!\n");
+		return -1;
+	}
 //======================================================================================================================================================================
 	allegro_draw_bitmap_center(menu_simon, display);
-
+	//allegro_draw_bitmap_center(menu_simon_play, display);
+	al_draw_bitmap(menu_simon_play, (al_get_display_width(display) - al_get_bitmap_width(menu_simon_play)) / 2, (al_get_display_height(display) - al_get_bitmap_height(menu_simon_play)) / 2, 0);
 	al_flip_display();
+	while (!play)
+	{
+		al_get_mouse_state(&mouse_state);
+		if ((mouse_state.x == al_get_bitmap_x(menu_simon_play)) 
+			|| (mouse_state.y == al_get_bitmap_y(menu_simon_play)))
+		{
+			al_draw_bitmap(menu_simon_play, (al_get_display_width(display) - al_get_bitmap_width(menu_simon_play)) / 2, (al_get_display_height(display) - al_get_bitmap_height(menu_simon_play)) / 2, 0);
+
+			al_flip_display();
+			//on_button = true;
+					
+		}
+		if (al_mouse_button_down(&mouse_state, 1))
+		{
+			return 0;
+		}
+		else if (on_button)
+		{
+			return 0;
+		}
+		al_get_keyboard_state(&kst);
+		if (al_key_down(&kst, ALLEGRO_KEY_ESCAPE)) {
+			return 0;
+			
+		}
+
+	}
+	
+	
+	
 
 	//al_rest(2.0);
 	

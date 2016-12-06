@@ -14,6 +14,8 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 	ALLEGRO_BITMAP * led_green_on = NULL;
 	ALLEGRO_BITMAP * led_button_off = NULL;
 
+	ALLEGRO_MOUSE_STATE mouse_state;
+
 	bool key_pressed[6] = { false, false, false, false, false, false};
 
 	bool redraw = false;
@@ -126,7 +128,9 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		{
 			al_flip_display();
 		}
-		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+		
+		
+		/*else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
 
 		}
@@ -134,6 +138,9 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 		{
 
 		}
+		*/
+		
+		
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
 			switch (ev.keyboard.keycode) 
