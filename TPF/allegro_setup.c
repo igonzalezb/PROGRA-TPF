@@ -1,22 +1,23 @@
 #include "allegro_display.h"
+#include "main.h"
 
-int allegro_setup()
+int allegro_setup_install()
 {
-	if (!al_init()) { //Inicializo Allegro
+	if (!al_init()) {			//Inicializo Allegro
 		fprintf(stderr, "Failed to initialize allegro!\n");
-		return -1;
+		return ERROR;
 	}
 	if (!al_init_image_addon()) {
 		fprintf(stderr, "Failed to initialize image addon !\n");
 		al_uninstall_system();
-		return -1;
+		return ERROR;
 	}
 
 	if (!al_install_keyboard()) { 
 		fprintf(stderr, "Failed to initialize the keyboard!\n");
 		al_uninstall_system();
 		al_shutdown_image_addon();
-		return -1;
+		return ERROR;
 	}
 
 	if (!al_install_mouse())
@@ -25,7 +26,7 @@ int allegro_setup()
 		al_shutdown_image_addon();
 		al_uninstall_system();
 		al_uninstall_keyboard();
-		return -1;
+		return ERROR;
 	}
 
 	if (!al_init_primitives_addon())
@@ -35,16 +36,18 @@ int allegro_setup()
 		al_uninstall_keyboard();
 		al_uninstall_system();
 		al_uninstall_mouse();
-		return -1;
+		return ERROR;
 	}
 
-	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+	al_init_font_addon(); // FIJARSE LO DE ERROR
+	al_init_ttf_addon();// 
 
 	return 0;
 }
 
-void allegro_uninstall()
+
+
+void allegro_setup_uninstall()
 {
 	al_shutdown_image_addon();
 	al_uninstall_keyboard();

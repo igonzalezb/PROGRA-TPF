@@ -8,23 +8,29 @@
 #include <pthread.h>
 
 
-enum PLATFORMS { ALLEGRO, RASPBERRYPI };
-enum COLORES { RED, GREEN, BLUE, YELLOW };
+enum platform { RASPBERRYPI, ALLEGRO };
+enum colores { RED, GREEN, BLUE, YELLOW };
 
 //#define	ALLEGRO 1
 
-#define ON      1
-#define OFF     0
+#define ON      '1'
+#define OFF     '0'
 
 
 #define MAX_LEVEL 100
 
 #define TRUE 1
 #define FALSE 0
+#define ERROR -1
 
-enum LEDS {
+enum leds {
 	LED_RED, LED_GREEN, LED_BLUE, LED_YELLOW, LED_ON_OFF
 };
+
+enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP };
+
+int configuration_start(int platform);
+int configuration_end(int platform);
 
 #endif // MAIN_H
 

@@ -17,9 +17,9 @@ int main(void)
 	    if (allegro_display_main())		//Llamo a la funcion de allegro de forma defensiva
 	    {
 		    fprintf(stderr, "Failed to initialize allegro!\n");
-		    return -1;
+		    return ERROR;
 	    }
-	    allegro_uninstall();
+	    allegro_setup_uninstall();
 	    break;
     case RASPBERRYPI:
 

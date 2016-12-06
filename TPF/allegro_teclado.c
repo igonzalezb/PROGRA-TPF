@@ -1,4 +1,4 @@
-
+#include "main.h"
 #include "allegro_teclado.h"
 
 
@@ -30,14 +30,14 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 		fprintf(stderr, "Failed to create simon!\n");
 		//al_destroy_display(display);
 		//al_destroy_bitmap(icon);
-		return -1;
+		return ERROR;
 	}
 	
 	
 	timer = al_create_timer(1.0 / FPS);
 	if (!timer) {
 		fprintf(stderr, "Failed to create timer!\n");
-		return -1;
+		return ERROR;
 	}
 
 	event_queue = al_create_event_queue();
@@ -45,42 +45,42 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 		fprintf(stderr, "Failed to create event_queue!\n");
 		al_destroy_timer(timer);
 		
-		return -1;
+		return ERROR;
 	}
 
 	led_red_on = al_load_bitmap("resources/simon_red_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
-		return -1;
+		return ERROR;
 	}
 
 	led_blue_on = al_load_bitmap("resources/simon_blue_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
-		return -1;
+		return ERROR;
 	}
 
 	led_green_on = al_load_bitmap("resources/simon_green_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
-		return -1;
+		return ERROR;
 	}
 
 	led_yellow_on = al_load_bitmap("resources/simon_yellow_on.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create led!\n");
 		//destroy
-		return -1;
+		return ERROR;
 	}
 
 	led_button_off = al_load_bitmap("resources/simon_button_off.png");
 	if (!led_red_on) {
 		fprintf(stderr, "Failed to create button!\n");
 		//destroy
-		return -1;
+		return ERROR;
 	}
 
 
