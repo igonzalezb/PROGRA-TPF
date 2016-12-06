@@ -88,15 +88,16 @@ int allegro_display_main(void)
 	al_set_display_icon(display, icon);  //Icono del programa
 
 //=========================================================================================================
+	
 	if (allegro_menu_inicio(display))
 	{
 		fprintf(stderr, "Failed allegro_welcome!\n");
 		//FALTAN LOS DISTROY
 		return ERROR;
 	}
-
-
 	
+
+	//FIJARSE BIEN LOS DISTROY
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
 	al_destroy_bitmap(cursor_image);

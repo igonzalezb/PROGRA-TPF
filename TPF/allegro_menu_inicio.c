@@ -163,11 +163,13 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 			if (allegro_teclado_main(display))
 			{
 				fprintf(stderr, "Failed allegro_teclado_main!\n");
+				//DISTROY
 				return ERROR;
 			}
 			play = false;
 
 			printf("CP5\n");
+			//VUELVO A EMPEZAR
 			al_flush_event_queue(event_queue1);
 			al_clear_to_color(al_color_name("black"));
 			allegro_draw_bitmap_center(menu_simon, display);
@@ -204,13 +206,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 	}
 
-
-
-
-	//al_rest(2.0);
-
-	//HAY QUE PONER QUE CON ENTER O APRETANDO PLAY EMPIEZE EL JUEGO
-
+	//DISTROY
 	al_destroy_event_queue(event_queue1);
 	return 0;
 }
