@@ -160,16 +160,17 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 			al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 2), ALLEGRO_ALIGN_CENTER, "LOADING...");
 			al_flip_display();
 
+			//VOY AL JUEG0
 			if (allegro_teclado_main(display))
 			{
 				fprintf(stderr, "Failed allegro_teclado_main!\n");
 				//DISTROY
 				return ERROR;
 			}
+			//VUELVO AL MENU PRINCIPAL
 			play = false;
-
 			printf("CP5\n");
-			//VUELVO A EMPEZAR
+			
 			al_flush_event_queue(event_queue1);
 			al_clear_to_color(al_color_name("black"));
 			allegro_draw_bitmap_center(menu_simon, display);
