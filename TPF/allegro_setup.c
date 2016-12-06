@@ -38,6 +38,9 @@ int allegro_setup()
 		return -1;
 	}
 
+	al_init_font_addon(); // initialize the font addon
+	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+
 	return 0;
 }
 

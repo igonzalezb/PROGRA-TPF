@@ -9,6 +9,8 @@
 #include <allegro5/allegro_audio.h> 
 #include <allegro5/allegro_acodec.h>
 #include "allegro5/allegro_primitives.h"
+#include <allegro5/allegro_font.h> //manejo de fonts
+#include <allegro5/allegro_ttf.h> //Manejo de ttfs
 
 #define SCREEN_W    1000
 #define SCREEN_H    700

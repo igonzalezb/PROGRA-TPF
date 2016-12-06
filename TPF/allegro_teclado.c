@@ -261,6 +261,6 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 	
 	al_destroy_timer(timer);
 	al_destroy_event_queue(event_queue);
-
+	
 	return 0;
 }

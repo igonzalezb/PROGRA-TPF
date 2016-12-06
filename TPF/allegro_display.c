@@ -92,7 +92,7 @@ int allegro_display_main(void)
 		return -1;
 	}
 	
-	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
+	//al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
 	//allegro_draw_bitmap_center(simon, display);
 
@@ -102,6 +102,8 @@ int allegro_display_main(void)
 
 	
 	al_destroy_display(display);
+	al_destroy_bitmap(icon);
+	al_destroy_bitmap(cursor_image);
 	//al_destroy_bitmap(simon);
 	al_uninstall_system();
 	return 0;
@@ -118,15 +120,17 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 
 	ALLEGRO_EVENT_QUEUE *event_queue1 = NULL;
 
-	ALLEGRO_MOUSE_STATE mouse_state;
+	ALLEGRO_FONT * font = NULL;
 
-	bool on_button = false;
+	//ALLEGRO_MOUSE_STATE mouse_state;
+
+	//bool on_button = false;
 
 	bool do_exit1 = false;
 
 	bool play = false;
 
-	ALLEGRO_KEYBOARD_STATE kst;
+	//ALLEGRO_KEYBOARD_STATE kst;
 
 	bool redraw1 = false;
 
@@ -149,6 +153,13 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 		//DESTROY
 		return -1;
 	}
+
+	font = al_load_ttf_font("resources/disney.ttf", 54, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA 
+
+	if (!font) {
+		fprintf(stderr, "Could not load 'disney.ttf'.\n");
+		return -1;
+	}
 //======================================================================================================================================================================
 	al_register_event_source(event_queue1, al_get_display_event_source(display));
 	
@@ -168,8 +179,11 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 	while (!do_exit1)
 	{
 		ALLEGRO_EVENT ev1;
+		
 		al_wait_for_event(event_queue1, &ev1);
+		
 		printf("CP3\n");
+		
 		if (ev1.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			//QUIT
 			do_exit1 = true;
@@ -184,7 +198,7 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 		}
 		else if (ev1.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
-
+			//if ( <= ev1.mouse.x <= )
 		}
 				
 		
@@ -241,6 +255,10 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 
 		if (play && al_is_event_queue_empty(event_queue1))
 		{
+			al_clear_to_color(al_color_name("black"));
+			al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 2), ALLEGRO_ALIGN_CENTER, "LOADING...");
+			al_flip_display();
+			
 			if (allegro_teclado_main(display))
 			{
 				fprintf(stderr, "Failed allegro_teclado_main!\n");
@@ -290,7 +308,7 @@ int allegro_welcome(ALLEGRO_DISPLAY * display)	//NO ANDA!!!
 	
 	//HAY QUE PONER QUE CON ENTER O APRETANDO PLAY EMPIEZE EL JUEGO
 
-
+	al_destroy_event_queue(event_queue1);
 	return 0;
 }
 

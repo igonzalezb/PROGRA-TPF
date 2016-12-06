@@ -40,3 +40,4 @@
 /TPF/packages
 *.config
 /TPF/Debug
+/TPF/Release
