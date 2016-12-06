@@ -3,10 +3,12 @@
 
 
 
-int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
+int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
+
+	ALLEGRO_BITMAP * simon = NULL;
 
 	ALLEGRO_BITMAP * led_red_on = NULL;
 	ALLEGRO_BITMAP * led_blue_on = NULL;
@@ -14,7 +16,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 	ALLEGRO_BITMAP * led_green_on = NULL;
 	ALLEGRO_BITMAP * led_button_off = NULL;
 
-	ALLEGRO_MOUSE_STATE mouse_state;
+	//ALLEGRO_MOUSE_STATE mouse_state;
 
 	bool key_pressed[6] = { false, false, false, false, false, false};
 
@@ -23,6 +25,15 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 	bool do_exit = false;
 
 //=========================================================================================================
+	simon = al_load_bitmap("resources/simon_all_off.png");
+	if (!simon) {
+		fprintf(stderr, "Failed to create simon!\n");
+		//al_destroy_display(display);
+		//al_destroy_bitmap(icon);
+		return -1;
+	}
+	
+	
 	timer = al_create_timer(1.0 / FPS);
 	if (!timer) {
 		fprintf(stderr, "Failed to create timer!\n");
@@ -74,7 +85,15 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * simon)
 
 
 //=========================================================================================================
+	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
+	allegro_draw_bitmap_center(simon, display);
+
+	al_flip_display();
+	
+	
+//==========================================================================================================	
+	
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
