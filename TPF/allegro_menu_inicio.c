@@ -3,6 +3,9 @@
 #include "allegro_teclado.h"
 
 
+#define PLAY_BUTTON_X	(al_get_display_width(display) / 2)
+#define PLAY_BUTTON_Y	((al_get_display_height(display) / 4) * 3.5)
+
 int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 {
 	ALLEGRO_BITMAP *menu_simon = NULL;
@@ -13,7 +16,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 	ALLEGRO_FONT * font = NULL;
 
-	//ALLEGRO_MOUSE_STATE mouse_state;
+	ALLEGRO_MOUSE_STATE mouse_state;
 
 	//bool on_button = false;
 
@@ -45,7 +48,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 		return ERROR;
 	}
 
-	font = al_load_ttf_font("resources/disney.ttf", 54, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA 
+	font = al_load_ttf_font("resources/disney.ttf", 60, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA 
 
 	if (!font) {
 		fprintf(stderr, "Could not load 'disney.ttf'.\n");
@@ -59,7 +62,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 	//=======================================================================================================================================================================	
 	allegro_draw_bitmap_center(menu_simon, display);
-	al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 4) * 3.5, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
+	al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 
 
 	//allegro_draw_bitmap_center(menu_simon_play, display);
@@ -68,12 +71,16 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 	al_flip_display();
 	printf("CP2\n");
+	
+	int x1, x2, y1, y2, w, h;
+	int mx, my;
+	
 	while (!do_exit1)
 	{
 		ALLEGRO_EVENT ev1;
 
 		al_wait_for_event(event_queue1, &ev1);
-
+		
 		printf("CP3\n");
 
 		if (ev1.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -86,13 +93,40 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 		else if (ev1.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
-
+			
+			//al_get_text_dimensions(font, ":: PLAY ::", &x, &y, &w, &h);
+			
+			al_get_mouse_state(&mouse_state);
+			
+			w = al_get_text_width(font, ":: PLAY ::");
+			h = 0x37;//al_get_font_line_height(font);
+			
+			x1 = (PLAY_BUTTON_X - (w / 2));
+			y1 = (PLAY_BUTTON_Y - (h / 2));
+			
+			x2 = (PLAY_BUTTON_X + (w /2));
+			y2 = (PLAY_BUTTON_Y + (h/2));
+			//printf("x: %X, y: %X, w: %X, h: %X\n", x, y, w, h);
+			//al_get_mouse_state(&mouse_state);
+			
+			mx = mouse_state.x;//ev1.mouse.x;
+			my = mouse_state.y;//ev1.mouse.y;
+			printf("mx %X, my %X\n", mx, my);
+			if (((x1 <= mx) && (mx <= x2)))// && ((y1 <= my) && (my <= y2)))
+			{
+				allegro_draw_bitmap_center(menu_simon_play, display);
+				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
+				al_flip_display();
+			}
+			
 		}
 		else if (ev1.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
-			/*if ((<= ev1.mouse.x <= ) && (<= ev1.mouse.y <= ))
+			//al_get_text_dimensions(font, ":: PLAY ::", &x, &y, &w, &h);
+			/*if (((x1 <= ev1.mouse.x) && (ev1.mouse.x <= x2)) && ((y1 <= ev1.mouse.y) && (ev1.mouse.y <= y2)))
 			{
-
+				redraw1 = true;
+				play = true;
 			}*/
 		}
 
@@ -101,13 +135,8 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 		{
 			if (ev1.keyboard.keycode == ALLEGRO_KEY_SPACE)
 			{
-				//allegro_draw_bitmap_center(simon, display);
-				//allegro_draw_bitmap_center(led_button_off, display);
-				//al_flip_display();
-				//redraw = true;
-				//allegro_teclado_main(display);
 				allegro_draw_bitmap_center(menu_simon_play, display);
-				al_draw_text(font, al_color_name("green"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 4) * 3.5, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
+				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 
 
 
@@ -143,7 +172,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 			//al_rest(0.1);
 			al_clear_to_color(al_color_name("black"));
 			allegro_draw_bitmap_center(menu_simon, display);
-			al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 4) * 3.5, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
+			al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 
 			//allegro_draw_bitmap_center(simon, display);
 			al_flip_display();
@@ -174,7 +203,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 			al_flush_event_queue(event_queue1);
 			al_clear_to_color(al_color_name("black"));
 			allegro_draw_bitmap_center(menu_simon, display);
-			al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 4) * 3.5, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
+			al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 
 			//allegro_draw_bitmap_center(simon, display);
 			al_flip_display();
