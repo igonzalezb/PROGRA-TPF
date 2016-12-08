@@ -30,8 +30,8 @@ enum leds {
 
 enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP };
 
-int configuration_start(int platform);
-int configuration_end(int platform);
+//int configuration_start(int platform);
+//int configuration_end(int platform);
 
 #endif // MAIN_H
 

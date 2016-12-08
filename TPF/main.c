@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    pthread_t tid1;
+//    pthread_t tid1;
 //    pthread_create(&tid1,NULL,thread_timer,double);
     int platforms = ALLEGRO;
    

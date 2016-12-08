@@ -17,8 +17,6 @@ int allegro_display_main(void)
 
 	ALLEGRO_MOUSE_CURSOR *cursor;
 
-	ALLEGRO_DISPLAY_MODE   disp_data;
-
 //=====================================================================================================
 //		INICIALIZO ALLEGRO, CREO DISPLAY Y CARGO IMAGENES
 //=====================================================================================================
@@ -32,11 +30,7 @@ int allegro_display_main(void)
 	
 //===============================DISPLAY=============================================================================
 	
-	//al_get_display_mode(al_get_num_display_modes() - 2, &disp_data);
-
-	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED); //ALLEGRO_MAXIMIZED |
-	
-	//display = al_create_display(disp_data.width, disp_data.height);
+	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED);
 	
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
@@ -51,7 +45,7 @@ int allegro_display_main(void)
 		return ERROR;
 	}
 
-	
+//==================================CUSTOM-MOUSE=========================================================	
 	cursor_image = al_load_bitmap("resources/cursor.png");
 	if (!cursor_image) {
 		fprintf(stderr, "Failed to create simon!\n");
@@ -60,13 +54,12 @@ int allegro_display_main(void)
 		return ERROR;
 	}
 
-//==================================CUSTOM-MOUSE=========================================================
+
 	cursor = al_create_mouse_cursor(cursor_image, 0, 0);
 	if (!cursor) {
 		fprintf(stderr, "Failed to create cursor!\n");
 		al_destroy_display(display);
 		al_destroy_bitmap(icon);
-		//al_destroy_bitmap(simon);
 		al_destroy_bitmap(cursor_image);
 		return ERROR;
 	}
@@ -77,7 +70,7 @@ int allegro_display_main(void)
 		fprintf(stderr, "Failed to set cursor!\n");
 		al_destroy_display(display);
 		al_destroy_bitmap(icon);
-		//al_destroy_bitmap(simon);
+		al_destroy_mouse_cursor(cursor);
 		al_destroy_bitmap(cursor_image);
 		return ERROR;
 	}
@@ -94,18 +87,20 @@ int allegro_display_main(void)
 	if (allegro_menu_inicio(display))
 	{
 		fprintf(stderr, "Failed allegro_welcome!\n");
-		//FALTAN LOS DISTROY
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_bitmap(cursor_image);
+		//
+		allegro_setup_uninstall();
 		return ERROR;
 	}
 	
-
-	
-	//FIJARSE BIEN LOS DISTROY
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
+	al_destroy_mouse_cursor(cursor);
 	al_destroy_bitmap(cursor_image);
-	//al_destroy_bitmap(simon);
-	//al_uninstall_system();
+	
 	allegro_setup_uninstall();
 	
 	return 0;
@@ -115,32 +110,31 @@ void allegro_draw_simon_off(ALLEGRO_DISPLAY * display)
 {
 	
 	al_clear_to_color(al_color_name("white"));
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2, al_color_name("black"));
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
+	al_draw_filled_circle(CENTER_W, CENTER_H, CENTER_H, al_color_name("black"));
+	al_draw_filled_circle(CENTER_W, CENTER_H, (CENTER_H / 3), al_color_name("grey"));
 
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI, PI / 2, al_color_name("lightgreen"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI / 2, PI / 2, al_color_name("lightyellow"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2 * PI, PI / 2, al_color_name("lightblue"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -PI / 2, PI / 2, al_color_name("lightcoral"), al_get_display_height(display) / 4);
+	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI, PI / 2, al_color_name("lightgreen"), ARC_THICKNESS);
+	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI / 2, PI / 2, al_color_name("lightyellow"), ARC_THICKNESS);
+	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, 2 * PI, PI / 2, al_color_name("lightblue"), ARC_THICKNESS);
+	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("lightcoral"), ARC_THICKNESS);
 
 }
 
 void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
 {
-	
 	switch (leds)
 	{
 	case LED_RED:
-		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -PI / 2, PI / 2, al_color_name("red"), al_get_display_height(display) / 4);
+		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("red"), ARC_THICKNESS);
 		break;
 	case LED_BLUE:
-		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2 * PI, PI / 2, al_color_name("blue"), al_get_display_height(display) / 4);
+		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, 2 * PI, PI / 2, al_color_name("blue"), ARC_THICKNESS);
 		break;
 	case LED_GREEN:
-		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI, PI / 2, al_color_name("green"), al_get_display_height(display) / 4);
+		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI, PI / 2, al_color_name("green"), ARC_THICKNESS);
 		break;
 	case LED_YELLOW:
-		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI / 2, PI / 2, al_color_name("yellow"), al_get_display_height(display) / 4);
+		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI / 2, PI / 2, al_color_name("yellow"), ARC_THICKNESS);
 		break;
 	}
 }
@@ -150,7 +144,7 @@ void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
 
 
 
-void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)	//CAMBIARLE EL NOMBRE
+void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)
 {
 	//al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
 

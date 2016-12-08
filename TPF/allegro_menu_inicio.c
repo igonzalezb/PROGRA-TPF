@@ -16,22 +16,14 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 	ALLEGRO_BITMAP *menu_simon_play = NULL;
 
-	ALLEGRO_EVENT_QUEUE *event_queue1 = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue1 = NULL;		//FIJARSE LO DE TODAS LAS VARIABLES 1
 
 	ALLEGRO_FONT * font = NULL;
 	ALLEGRO_FONT * font2 = NULL;
 
-	//ALLEGRO_MOUSE_STATE mouse_state;
-
-	/*ALLEGRO_TIMER *timer1 = NULL;*/
-
-	//bool on_button = false;
-
 	bool do_exit1 = false;
 
 	bool play = false;
-
-	//ALLEGRO_KEYBOARD_STATE kst;
 
 	bool redraw1 = false;
 
@@ -55,14 +47,14 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 		return ERROR;
 	}
 
-	font = al_load_ttf_font("resources/disney.ttf", 54, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA 
+	font = al_load_ttf_font("resources/disney.ttf", 54, 0);
 
 	if (!font) {
 		fprintf(stderr, "Could not load 'disney.ttf'.\n");
 		return ERROR;
 	}
 
-	font2 = al_load_ttf_font("resources/disney.ttf", 26, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA 
+	font2 = al_load_ttf_font("resources/disney.ttf", 26, 0);
 
 	if (!font) {
 		fprintf(stderr, "Could not load 'disney.ttf'.\n");
@@ -83,20 +75,17 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 
 	//=======================================================================================================================================================================	
-	//al_acknowledge_resize(display);
-	//al_flip_display();
-	allegro_draw_bitmap_center(menu_simon, display);
+	
+	allegro_draw_bitmap_scaled(menu_simon, display);
 	al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 	al_draw_text(font2, al_color_name("white"), INFO_BUTTON_X, INFO_BUTTON_Y, ALLEGRO_ALIGN_CENTER, "INFO");
-	//allegro_draw_bitmap_center(menu_simon_play, display);
-	//al_draw_bitmap(menu_simon_play, (al_get_display_width(display) - al_get_bitmap_width(menu_simon_play)) / 2, (al_get_display_height(display) - al_get_bitmap_height(menu_simon_play)) / 2, 0);
-
-
+	
 	al_flip_display();
 	printf("CP2\n");
 	
 	int x1, x2, y1, y2, w, h;
 	int mx, my;
+	
 	//METER INSTRUCCIONES
 
 	//al_start_timer(timer1);
@@ -138,7 +127,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 			
 			if (((x1 <= mx) && (mx <= x2))  && ((my >= y1) && (my <= y2)))
 			{
-				allegro_draw_bitmap_center(menu_simon_play, display);
+				allegro_draw_bitmap_scaled(menu_simon_play, display);
 				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 				al_flip_display();
 			}
@@ -161,7 +150,7 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 		{
 			if (ev1.keyboard.keycode == ALLEGRO_KEY_SPACE)
 			{
-				allegro_draw_bitmap_center(menu_simon_play, display);
+				allegro_draw_bitmap_scaled(menu_simon_play, display);
 				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 				al_flip_display();
 				printf("SPACE\n");
@@ -188,12 +177,8 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 		if (redraw1 && al_is_event_queue_empty(event_queue1))
 		{
-
-
-			//al_flip_display();
-			//al_rest(0.1);
 			al_clear_to_color(al_color_name("black"));
-			allegro_draw_bitmap_center(menu_simon, display);
+			allegro_draw_bitmap_scaled(menu_simon, display);
 			al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ":: PLAY ::");
 			al_draw_text(font2, al_color_name("white"), INFO_BUTTON_X, INFO_BUTTON_Y, ALLEGRO_ALIGN_CENTER, "INFO");
 
@@ -208,10 +193,12 @@ int allegro_menu_inicio(ALLEGRO_DISPLAY * display)
 
 		if (play && al_is_event_queue_empty(event_queue1))
 		{
+		//==========================ESTO SE PUDE SACAR=======================================
 			al_clear_to_color(al_color_name("black"));
-			al_draw_text(font, al_color_name("white"), (al_get_display_width(display) / 2), (al_get_display_height(display) / 2), ALLEGRO_ALIGN_CENTER, "LOADING...");
+			al_draw_text(font, al_color_name("white"), (CENTER_W), (CENTER_H), ALLEGRO_ALIGN_CENTER, "LOADING...");
 			al_flip_display();
-
+			al_rest(1.5);
+		//====================================================================================
 			//VOY AL JUEG0
 			if (allegro_teclado_main(display))
 			{

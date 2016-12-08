@@ -8,30 +8,19 @@ struct Point {
 double getDistance(ALLEGRO_DISPLAY * display, struct Point a);
 
 
-#define CLICK_GREEN ((ev.mouse.x >= 0 && ev.mouse.x <= al_get_display_width(display)/2) && (ev.mouse.y >= 0 && ev.mouse.y <= al_get_display_height(display) / 2) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
-
-#define CLICK_RED ((ev.mouse.x >= (al_get_display_width(display)/2) && ev.mouse.x <= al_get_display_width(display)) && (ev.mouse.y >= 0 && ev.mouse.y <= al_get_display_height(display) / 2) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
-
-#define CLICK_BLUE ((ev.mouse.x >= (al_get_display_width(display)/2) && ev.mouse.x <= al_get_display_width(display)) && (ev.mouse.y >= (al_get_display_height(display) / 2) && ev.mouse.y <= al_get_display_height(display)) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
-
-#define CLICK_YELLOW ((ev.mouse.x >= 0 && ev.mouse.x <= al_get_display_width(display)/2) && (ev.mouse.y >= (al_get_display_height(display) / 2) && ev.mouse.y <= al_get_display_height(display)) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
-
-
-
-
 
 int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 
-	ALLEGRO_BITMAP * simon = NULL;
+	/*ALLEGRO_BITMAP * simon = NULL;
 
 	ALLEGRO_BITMAP * led_red_on = NULL;
 	ALLEGRO_BITMAP * led_blue_on = NULL;
 	ALLEGRO_BITMAP * led_yellow_on = NULL;
 	ALLEGRO_BITMAP * led_green_on = NULL;
-	ALLEGRO_BITMAP * led_button_off = NULL;
+	ALLEGRO_BITMAP * led_button_off = NULL;*/
 
 	//ALLEGRO_MOUSE_STATE mouse_state;
 
@@ -42,13 +31,13 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 	bool do_exit = false;
 
 //=========================================================================================================
-	simon = al_load_bitmap("resources/simon_all_off.png");
-	if (!simon) {
-		fprintf(stderr, "Failed to create simon!\n");
-		//al_destroy_display(display);
-		//al_destroy_bitmap(icon);
-		return ERROR;
-	}
+	//simon = al_load_bitmap("resources/simon_all_off.png");
+	//if (!simon) {
+	//	fprintf(stderr, "Failed to create simon!\n");
+	//	//al_destroy_display(display);
+	//	//al_destroy_bitmap(icon);
+	//	return ERROR;
+	//}
 	
 	
 	timer = al_create_timer(1.0 / FPS);
@@ -65,46 +54,44 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 		return ERROR;
 	}
 
-	led_red_on = al_load_bitmap("resources/simon_red_on.png");
-	if (!led_red_on) {
-		fprintf(stderr, "Failed to create led!\n");
-		//destroy
-		return ERROR;
-	}
+	//led_red_on = al_load_bitmap("resources/simon_red_on.png");
+	//if (!led_red_on) {
+	//	fprintf(stderr, "Failed to create led!\n");
+	//	//destroy
+	//	return ERROR;
+	//}
 
-	led_blue_on = al_load_bitmap("resources/simon_blue_on.png");
-	if (!led_red_on) {
-		fprintf(stderr, "Failed to create led!\n");
-		//destroy
-		return ERROR;
-	}
+	//led_blue_on = al_load_bitmap("resources/simon_blue_on.png");
+	//if (!led_red_on) {
+	//	fprintf(stderr, "Failed to create led!\n");
+	//	//destroy
+	//	return ERROR;
+	//}
 
-	led_green_on = al_load_bitmap("resources/simon_green_on.png");
-	if (!led_red_on) {
-		fprintf(stderr, "Failed to create led!\n");
-		//destroy
-		return ERROR;
-	}
+	//led_green_on = al_load_bitmap("resources/simon_green_on.png");
+	//if (!led_red_on) {
+	//	fprintf(stderr, "Failed to create led!\n");
+	//	//destroy
+	//	return ERROR;
+	//}
 
-	led_yellow_on = al_load_bitmap("resources/simon_yellow_on.png");
-	if (!led_red_on) {
-		fprintf(stderr, "Failed to create led!\n");
-		//destroy
-		return ERROR;
-	}
+	//led_yellow_on = al_load_bitmap("resources/simon_yellow_on.png");
+	//if (!led_red_on) {
+	//	fprintf(stderr, "Failed to create led!\n");
+	//	//destroy
+	//	return ERROR;
+	//}
 
-	led_button_off = al_load_bitmap("resources/simon_button_off.png");
-	if (!led_red_on) {
-		fprintf(stderr, "Failed to create button!\n");
-		//destroy
-		return ERROR;
-	}
+	//led_button_off = al_load_bitmap("resources/simon_button_off.png");
+	//if (!led_red_on) {
+	//	fprintf(stderr, "Failed to create button!\n");
+	//	//destroy
+	//	return ERROR;
+	//}
 
 
 //=========================================================================================================
 	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
-
-	//allegro_draw_bitmap_center(simon, display);
 
 	allegro_draw_simon_off(display);
 
@@ -162,11 +149,14 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 		} //Nose para que sirve
 
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		{
+			redraw = false;
 			do_exit = true;
+		}
+			
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 		{
 			al_acknowledge_resize(ev.display.source);
-			//al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 			redraw = true;
 		}
 		
@@ -233,7 +223,6 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 
 				case ALLEGRO_KEY_UP:
 					led_pressed[KEY_UP] = true;
-					//allegro_draw_bitmap_center(led_green_on, display);
 					allegro_turn_led_on(display, LED_GREEN);
 					al_flip_display();
 					printf("UP\n");
@@ -301,6 +290,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 
 		
 			case ALLEGRO_KEY_ESCAPE:
+				redraw = false;
 				do_exit = true;
 				break;
 			}
@@ -336,6 +326,6 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 double getDistance(ALLEGRO_DISPLAY * display, struct Point a)
 {
 	double distance;
-	distance = sqrt((a.x - (al_get_display_width(display) / 2)) * (a.x - (al_get_display_width(display) / 2)) + (a.y - (al_get_display_height(display) / 2)) *(a.y - (al_get_display_height(display) / 2)));
+	distance = sqrt((a.x - (CENTER_W)) * (a.x - (CENTER_W)) + (a.y - (CENTER_H)) *(a.y - (CENTER_H)));
 	return distance;
 }
