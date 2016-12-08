@@ -14,8 +14,8 @@
 #include <allegro5/allegro_audio.h> 
 #include <allegro5/allegro_acodec.h>
 
-#define SCREEN_W    1000
-#define SCREEN_H    700
+#define SCREEN_W    1100
+#define SCREEN_H    600
 #define FPS         60.0
 
 //#define CENTER1(x)	(#x, (al_get_display_width(display) - al_get_bitmap_width(#x)) / 2, (al_get_display_height(display) - al_get_bitmap_height(#x)) / 2, 0)	
@@ -30,6 +30,8 @@ int allegro_setup_install();
 void allegro_setup_uninstall();
 
 void allegro_draw_bitmap_center(ALLEGRO_BITMAP * , ALLEGRO_DISPLAY * );
+
+void allegro_draw_button_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display);
 
 int allegro_menu_inicio(ALLEGRO_DISPLAY * display);
 

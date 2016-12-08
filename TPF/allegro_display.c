@@ -32,11 +32,13 @@ int allegro_display_main(void)
 	
 //===============================DISPLAY=============================================================================
 	
-	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
+	//al_get_display_mode(al_get_num_display_modes() - 2, &disp_data);
 
-	al_set_new_display_flags(ALLEGRO_MAXIMIZED|ALLEGRO_RESIZABLE|ALLEGRO_WINDOWED);
+	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED); //ALLEGRO_MAXIMIZED |
 	
-	display = al_create_display(disp_data.width, disp_data.height);
+	//display = al_create_display(disp_data.width, disp_data.height);
+	
+	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
 		fprintf(stderr, "Failed to create display!\n");
 		return ERROR;
@@ -89,14 +91,43 @@ int allegro_display_main(void)
 
 //=========================================================================================================
 	
-	if (allegro_menu_inicio(display))
-	{
-		fprintf(stderr, "Failed allegro_welcome!\n");
-		//FALTAN LOS DISTROY
-		return ERROR;
-	}
+	//if (allegro_menu_inicio(display))
+	//{
+	//	fprintf(stderr, "Failed allegro_welcome!\n");
+	//	//FALTAN LOS DISTROY
+	//	return ERROR;
+	//}
 	
+	//al_clear_to_color(al_color_name("black"));
+	//al_draw_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display)/ 2.5, al_color_name("white"), al_get_display_height(display) / 20);
+	
+	/*al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.7, al_color_name("red"));
+	al_draw_filled_rectangle(al_get_display_width(display) / 2, 0, al_get_display_width(display), al_get_display_height(display), al_color_name("black"));
+	al_draw_filled_rectangle(0, al_get_display_height(display)/2, al_get_display_width(display), al_get_display_height(display), al_color_name("black"));
+	
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.7, al_color_name("blue"));
+	
+	
+	
+	
+	al_draw_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.5, al_color_name("white"), al_get_display_height(display) / 20);
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
+	*/
 
+	float pi = 3.141593;
+	
+	al_clear_to_color(al_color_name("white"));
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2, al_color_name("black"));
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
+
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, pi, pi/2, al_color_name("lightgreen"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, pi/2, pi/2, al_color_name("lightyellow"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2* pi, pi/2, al_color_name("lightblue"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -pi/2, pi/2, al_color_name("lightcoral"), al_get_display_height(display) / 4);
+
+	al_flip_display();
+	
+	al_rest(5.0);
 	//FIJARSE BIEN LOS DISTROY
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
@@ -119,3 +150,5 @@ void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * displ
 		0, 0, al_get_display_width(display), al_get_display_height(display), // TE LO DIBUJA DEL TAMAÑO DEL DISPLAY ACTUAL
 		0);
 }
+
+

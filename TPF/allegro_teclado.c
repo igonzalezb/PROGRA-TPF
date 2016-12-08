@@ -145,19 +145,23 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 			do_exit = true;
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 		{
-			al_flip_display();
+			al_acknowledge_resize(ev.display.source);
+			//al_clear_to_color(al_color_name("white"));	//Fondo Blanco
+			redraw = true;
 		}
 		
 		
 		/*else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
-
+			if ()
+		
 		}
+		
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
 
-		}
-		*/
+		}*/
+		
 		
 		
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
