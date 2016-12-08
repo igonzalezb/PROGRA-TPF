@@ -98,21 +98,6 @@ int allegro_display_main(void)
 	//	return ERROR;
 	//}
 	
-	//al_clear_to_color(al_color_name("black"));
-	//al_draw_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display)/ 2.5, al_color_name("white"), al_get_display_height(display) / 20);
-	
-	/*al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.7, al_color_name("red"));
-	al_draw_filled_rectangle(al_get_display_width(display) / 2, 0, al_get_display_width(display), al_get_display_height(display), al_color_name("black"));
-	al_draw_filled_rectangle(0, al_get_display_height(display)/2, al_get_display_width(display), al_get_display_height(display), al_color_name("black"));
-	
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.7, al_color_name("blue"));
-	
-	
-	
-	
-	al_draw_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2.5, al_color_name("white"), al_get_display_height(display) / 20);
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
-	*/
 
 	float pi = 3.141593;
 	

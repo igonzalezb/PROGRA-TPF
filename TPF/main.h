@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #define HAVE_STRUCT_TIMESPEC	//SOLO PARA QUE ME ANDE (iña)THREADS EN WINDOWS
 #include <pthread.h>
 
