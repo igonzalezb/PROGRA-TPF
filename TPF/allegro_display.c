@@ -91,28 +91,15 @@ int allegro_display_main(void)
 
 //=========================================================================================================
 	
-	//if (allegro_menu_inicio(display))
-	//{
-	//	fprintf(stderr, "Failed allegro_welcome!\n");
-	//	//FALTAN LOS DISTROY
-	//	return ERROR;
-	//}
+	if (allegro_menu_inicio(display))
+	{
+		fprintf(stderr, "Failed allegro_welcome!\n");
+		//FALTAN LOS DISTROY
+		return ERROR;
+	}
 	
 
-	float pi = 3.141593;
 	
-	al_clear_to_color(al_color_name("white"));
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2, al_color_name("black"));
-	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
-
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, pi, pi/2, al_color_name("lightgreen"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, pi/2, pi/2, al_color_name("lightyellow"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2* pi, pi/2, al_color_name("lightblue"), al_get_display_height(display) / 4);
-	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -pi/2, pi/2, al_color_name("lightcoral"), al_get_display_height(display) / 4);
-
-	al_flip_display();
-	
-	al_rest(5.0);
 	//FIJARSE BIEN LOS DISTROY
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
@@ -124,9 +111,46 @@ int allegro_display_main(void)
 	return 0;
 }
 
+void allegro_draw_simon_off(ALLEGRO_DISPLAY * display)
+{
+	
+	al_clear_to_color(al_color_name("white"));
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 2, al_color_name("black"));
+	al_draw_filled_circle(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 6, al_color_name("grey"));
+
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI, PI / 2, al_color_name("lightgreen"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI / 2, PI / 2, al_color_name("lightyellow"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2 * PI, PI / 2, al_color_name("lightblue"), al_get_display_height(display) / 4);
+	al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -PI / 2, PI / 2, al_color_name("lightcoral"), al_get_display_height(display) / 4);
+
+}
+
+void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
+{
+	
+	switch (leds)
+	{
+	case LED_RED:
+		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, -PI / 2, PI / 2, al_color_name("red"), al_get_display_height(display) / 4);
+		break;
+	case LED_BLUE:
+		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, 2 * PI, PI / 2, al_color_name("blue"), al_get_display_height(display) / 4);
+		break;
+	case LED_GREEN:
+		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI, PI / 2, al_color_name("green"), al_get_display_height(display) / 4);
+		break;
+	case LED_YELLOW:
+		al_draw_arc(al_get_display_width(display) / 2, al_get_display_height(display) / 2, al_get_display_height(display) / 3, PI / 2, PI / 2, al_color_name("yellow"), al_get_display_height(display) / 4);
+		break;
+	}
+}
 
 
-void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)
+
+
+
+
+void allegro_draw_bitmap_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)	//CAMBIARLE EL NOMBRE
 {
 	//al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
 

@@ -18,6 +18,9 @@
 #define SCREEN_H    600
 #define FPS         60.0
 
+
+#define PI	3.141593
+
 //#define CENTER1(x)	(#x, (al_get_display_width(display) - al_get_bitmap_width(#x)) / 2, (al_get_display_height(display) - al_get_bitmap_height(#x)) / 2, 0)	
 //#define CENTER(x)	CENTER1(x)
 
@@ -33,7 +36,11 @@ void allegro_draw_bitmap_center(ALLEGRO_BITMAP * , ALLEGRO_DISPLAY * );
 
 void allegro_draw_button_center(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display);
 
+void allegro_draw_simon_off(ALLEGRO_DISPLAY * display);
+
 int allegro_menu_inicio(ALLEGRO_DISPLAY * display);
+
+void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int led);
 
 #endif // !ALLEGRO_DISPLAY_H
 

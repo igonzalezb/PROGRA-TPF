@@ -1,6 +1,23 @@
 #include "main.h" 
 #include "allegro_teclado.h"
 
+struct Point {
+	long x, y;
+};
+
+double getDistance(ALLEGRO_DISPLAY * display, struct Point a);
+
+
+#define CLICK_GREEN ((ev.mouse.x >= 0 && ev.mouse.x <= al_get_display_width(display)/2) && (ev.mouse.y >= 0 && ev.mouse.y <= al_get_display_height(display) / 2) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
+
+#define CLICK_RED ((ev.mouse.x >= (al_get_display_width(display)/2) && ev.mouse.x <= al_get_display_width(display)) && (ev.mouse.y >= 0 && ev.mouse.y <= al_get_display_height(display) / 2) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
+
+#define CLICK_BLUE ((ev.mouse.x >= (al_get_display_width(display)/2) && ev.mouse.x <= al_get_display_width(display)) && (ev.mouse.y >= (al_get_display_height(display) / 2) && ev.mouse.y <= al_get_display_height(display)) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
+
+#define CLICK_YELLOW ((ev.mouse.x >= 0 && ev.mouse.x <= al_get_display_width(display)/2) && (ev.mouse.y >= (al_get_display_height(display) / 2) && ev.mouse.y <= al_get_display_height(display)) && (getDistance(display, a) >= ((al_get_display_height(display) / 3) - al_get_display_height(display) / 8)) && (getDistance(display, a) <= ((al_get_display_height(display) / 3) + al_get_display_height(display) / 8)))
+
+
+
 
 
 int allegro_teclado_main (ALLEGRO_DISPLAY * display)
@@ -18,7 +35,7 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 
 	//ALLEGRO_MOUSE_STATE mouse_state;
 
-	bool key_pressed[6] = { false, false, false, false, false, false};
+	bool led_pressed[6] = { false, false, false, false, false, false};
 
 	bool redraw = false;
 
@@ -87,7 +104,9 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 //=========================================================================================================
 	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
-	allegro_draw_bitmap_center(simon, display);
+	//allegro_draw_bitmap_center(simon, display);
+
+	allegro_draw_simon_off(display);
 
 	al_flip_display();
 	
@@ -100,7 +119,8 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_start_timer(timer);
-
+	struct Point a;
+	
 	while (!do_exit)
 	{
 		ALLEGRO_EVENT ev;
@@ -151,16 +171,50 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 		}
 		
 		
-		/*else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
-			if ()
+			a.x = ev.mouse.x;
+			a.y = ev.mouse.y;
+			//FIJARSE LO DE IF CAMBIARLOS POR ELSE IF O ALGUNA COSA
+			if (CLICK_GREEN)
+			{
+				led_pressed[LED_GREEN] = true;
+				allegro_turn_led_on(display, LED_GREEN);
+				al_flip_display();
+			}
+			if (CLICK_RED)
+			{
+				led_pressed[LED_RED] = true;
+				allegro_turn_led_on(display, LED_RED);
+				al_flip_display();
+			}
+			if (CLICK_BLUE)
+			{
+				led_pressed[LED_BLUE] = true;
+				allegro_turn_led_on(display, LED_BLUE);
+				al_flip_display();
+			}
+			if (CLICK_YELLOW)
+			{
+				led_pressed[LED_YELLOW] = true;
+				allegro_turn_led_on(display, LED_YELLOW);
+				al_flip_display();
+			}
 		
 		}
 		
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
+			if(led_pressed[LED_GREEN] || led_pressed[LED_RED] || led_pressed[LED_BLUE] || led_pressed[LED_YELLOW])
+			{
+				led_pressed[LED_GREEN] = false;
+				led_pressed[LED_RED] = false;
+				led_pressed[LED_BLUE] = false;
+				led_pressed[LED_YELLOW] = false;
+				redraw = true;
+			}
 
-		}*/
+		}
 		
 		
 		
@@ -169,40 +223,44 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 			switch (ev.keyboard.keycode) 
 			{
 				case ALLEGRO_KEY_SPACE:
-					key_pressed[KEY_SPACE] = true;
-					allegro_draw_bitmap_center(simon, display);
-					//allegro_draw_bitmap_center(led_button_off, display);
-					al_flip_display();
-					printf("SPACE\n");
+					//key_pressed[KEY_SPACE] = true;
+					//allegro_draw_bitmap_center(simon, display);
+					////allegro_draw_bitmap_center(led_button_off, display);
+					//al_flip_display();
+					//printf("SPACE\n");
 					//RESTART GAME
 					break;
 
 				case ALLEGRO_KEY_UP:
-					key_pressed[KEY_UP] = true;
-					allegro_draw_bitmap_center(led_green_on, display);
+					led_pressed[KEY_UP] = true;
+					//allegro_draw_bitmap_center(led_green_on, display);
+					allegro_turn_led_on(display, LED_GREEN);
 					al_flip_display();
 					printf("UP\n");
 					//validacion
 					break;
 
 				case ALLEGRO_KEY_DOWN:
-					key_pressed[KEY_DOWN] = true;
-					allegro_draw_bitmap_center(led_blue_on, display);
+					led_pressed[KEY_DOWN] = true;
+					//allegro_draw_bitmap_center(led_blue_on, display);
+					allegro_turn_led_on(display, LED_BLUE);
 					al_flip_display();
 					printf("DOWM\n");
 					//validacion
 					break;
 
 				case ALLEGRO_KEY_LEFT:
-					key_pressed[KEY_LEFT] = true;
-					allegro_draw_bitmap_center(led_yellow_on, display);
+					led_pressed[KEY_LEFT] = true;
+					//allegro_draw_bitmap_center(led_yellow_on, display);
+					allegro_turn_led_on(display, LED_YELLOW);
 					al_flip_display();
 					printf("LEFT\n");
 					//validacion
 					break;
 				case ALLEGRO_KEY_RIGHT:
-					key_pressed[KEY_RIGHT] = true;
-					allegro_draw_bitmap_center(led_red_on, display);
+					led_pressed[KEY_RIGHT] = true;
+					//allegro_draw_bitmap_center(led_red_on, display);
+					allegro_turn_led_on(display, LED_RED);
 					al_flip_display();
 					printf("RIGHT\n");
 					//validacion
@@ -256,7 +314,8 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 			//al_flip_display();
 			al_rest(0.1);
 			al_clear_to_color(al_color_name("white"));
-			allegro_draw_bitmap_center(simon, display);
+			//allegro_draw_bitmap_center(simon, display);
+			allegro_draw_simon_off(display);
 			al_flip_display();
 			
 
@@ -267,4 +326,16 @@ int allegro_teclado_main (ALLEGRO_DISPLAY * display)
 	al_destroy_event_queue(event_queue);
 	
 	return 0;
+}
+
+
+
+
+
+
+double getDistance(ALLEGRO_DISPLAY * display, struct Point a)
+{
+	double distance;
+	distance = sqrt((a.x - (al_get_display_width(display) / 2)) * (a.x - (al_get_display_width(display) / 2)) + (a.y - (al_get_display_height(display) / 2)) *(a.y - (al_get_display_height(display) / 2)));
+	return distance;
 }
