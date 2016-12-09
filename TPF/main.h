@@ -14,8 +14,8 @@ enum colores { RED, GREEN, BLUE, YELLOW };
 
 //#define	ALLEGRO 1
 
-#define ON      '1'
-#define OFF     '0'
+#define ON      1
+#define OFF     0
 
 
 #define MAX_LEVEL 100

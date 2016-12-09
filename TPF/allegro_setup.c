@@ -1,7 +1,7 @@
 #include "allegro_display.h"
 #include "main.h"
 
-int allegro_setup_install()
+int configuration_start(void)
 {
 	if (!al_init()) {
 		fprintf(stderr, "Failed to initialize allegro!\n");
@@ -48,14 +48,14 @@ int allegro_setup_install()
 
 
 
-void allegro_setup_uninstall()
+void configuration_end(void)
 {
-	//FIJARSE CUAL DA ERROR EN WINDOWS
+	al_uninstall_system();
 	al_shutdown_image_addon();
 	al_uninstall_keyboard();
 	al_uninstall_mouse();
 	al_shutdown_primitives_addon();
 	al_shutdown_font_addon();
 	al_shutdown_ttf_addon();
-	al_uninstall_system();
+	
 }

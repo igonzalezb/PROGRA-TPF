@@ -2,15 +2,16 @@
 #include "allegro_teclado.h"
 #include "main.h"
 
+ALLEGRO_DISPLAY * display = NULL;
+ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
 
-int allegro_display_main(void)
+
+int allegro_display_setup(void)
 
 {
 	const char *title = { "SIMON" };
 	
-	ALLEGRO_DISPLAY * display = NULL;
-
 	ALLEGRO_BITMAP *icon = NULL;
 
 	ALLEGRO_BITMAP *cursor_image = NULL;
@@ -21,7 +22,7 @@ int allegro_display_main(void)
 //		INICIALIZO ALLEGRO, CREO DISPLAY Y CARGO IMAGENES
 //=====================================================================================================
 
-	if (allegro_setup_install())
+	if (configuration_start())
 	{
 		fprintf(stderr, "Failed to setup allegro!\n");
 		return ERROR;
@@ -29,14 +30,18 @@ int allegro_display_main(void)
 
 	
 //===============================DISPLAY=============================================================================
+	int min_w, min_h, max_w, max_h;
+	
 	
 	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED);
-	
+	//ARREGLAR PONER UN MINIMO DISPLAY
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
 		fprintf(stderr, "Failed to create display!\n");
 		return ERROR;
 	}
+	al_get_window_constraints(display, &min_w, &min_h, &max_w, &max_h);
+	al_set_window_constraints(display, SCREEN_W, SCREEN_H, max_w, max_h);
 
 	icon = al_load_bitmap("resources/simon_icon.png");
 	if (!icon) {
@@ -82,9 +87,22 @@ int allegro_display_main(void)
 
 	al_set_display_icon(display, icon);  //Icono del programa
 
-//=========================================================================================================
+//==================================== EVENTE QUEUE=====================================================================
+	event_queue = al_create_event_queue();
+	if (!event_queue) {
+		fprintf(stderr, "Failed to create event_queue!\n");
+		//DESTROY
+		return ERROR;
+	}
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+	//al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_mouse_event_source());
 	
-	if (allegro_menu_inicio(display))
+//===========================================================================================================================	
+	
+	
+	if (allegro_menu_inicio())
 	{
 		fprintf(stderr, "Failed allegro_welcome!\n");
 		al_destroy_display(display);
@@ -92,7 +110,7 @@ int allegro_display_main(void)
 		al_destroy_mouse_cursor(cursor);
 		al_destroy_bitmap(cursor_image);
 		//
-		allegro_setup_uninstall();
+		configuration_end();
 		return ERROR;
 	}
 	
@@ -100,15 +118,23 @@ int allegro_display_main(void)
 	al_destroy_bitmap(icon);
 	al_destroy_mouse_cursor(cursor);
 	al_destroy_bitmap(cursor_image);
-	
-	allegro_setup_uninstall();
+	al_destroy_event_queue(event_queue);
+	configuration_end();
 	
 	return 0;
 }
 
-void allegro_draw_simon_off(ALLEGRO_DISPLAY * display)
+int allegro_draw_simon_off()
 {
 	
+	ALLEGRO_FONT * font = NULL;
+
+	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
+	if (!font) {
+		fprintf(stderr, "Could not load font ttf.\n");
+		return ERROR;
+	}
+
 	al_clear_to_color(al_color_name("white"));
 	al_draw_filled_circle(CENTER_W, CENTER_H, CENTER_H, al_color_name("black"));
 	al_draw_filled_circle(CENTER_W, CENTER_H, (CENTER_H / 3), al_color_name("grey"));
@@ -118,10 +144,17 @@ void allegro_draw_simon_off(ALLEGRO_DISPLAY * display)
 	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, 2 * PI, PI / 2, al_color_name("lightblue"), ARC_THICKNESS);
 	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("lightcoral"), ARC_THICKNESS);
 
+	al_draw_text(font, al_color_name("white"), CENTER_W, CENTER_H, ALLEGRO_ALIGN_CENTER, "S I M O N");
+	al_draw_text(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: ");
+	
+	al_flip_display();
+	
+	return 0;
 }
 
-void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
+void allegro_turn_led_on(int leds)
 {
+	
 	switch (leds)
 	{
 	case LED_RED:
@@ -137,6 +170,8 @@ void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
 		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI / 2, PI / 2, al_color_name("yellow"), ARC_THICKNESS);
 		break;
 	}
+
+	al_flip_display();
 }
 
 
@@ -144,7 +179,7 @@ void allegro_turn_led_on(ALLEGRO_DISPLAY * display, int leds)
 
 
 
-void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap, ALLEGRO_DISPLAY * display)
+void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 {
 	//al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
 

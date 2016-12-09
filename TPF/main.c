@@ -14,12 +14,12 @@ int main(void)
     switch (platforms)
     {
     case ALLEGRO:
-	    if (allegro_display_main())		//Llamo a la funcion de allegro de forma defensiva
+	    if (allegro_display_setup())		//Llamo a la funcion de allegro de forma defensiva
 	    {
 		    fprintf(stderr, "Failed to initialize allegro!\n");
 		    return ERROR;
 	    }
-	    allegro_setup_uninstall();
+	    configuration_end();
 	    break;
     case RASPBERRYPI:
 
