@@ -14,7 +14,7 @@ int main(void)
     switch (platforms)
     {
     case ALLEGRO:
-	    if (allegro_display_setup())		//Llamo a la funcion de allegro de forma defensiva
+	    if (configuration_start())		//Llamo a la funcion de allegro de forma defensiva
 	    {
 		    fprintf(stderr, "Failed to initialize allegro!\n");
 		    return ERROR;

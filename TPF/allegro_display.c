@@ -4,10 +4,13 @@
 
 ALLEGRO_DISPLAY * display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+extern int level;
+ALLEGRO_SAMPLE *sample_red = NULL;
+ALLEGRO_SAMPLE *sample_blue = NULL;
+ALLEGRO_SAMPLE *sample_green = NULL;
+ALLEGRO_SAMPLE *sample_yellow = NULL;
 
-
-
-int allegro_display_setup(void)
+int configuration_start(void)
 
 {
 	const char *title = { "SIMON" };
@@ -22,7 +25,7 @@ int allegro_display_setup(void)
 //		INICIALIZO ALLEGRO, CREO DISPLAY Y CARGO IMAGENES
 //=====================================================================================================
 
-	if (configuration_start())
+	if (allegro_setup())
 	{
 		fprintf(stderr, "Failed to setup allegro!\n");
 		return ERROR;
@@ -80,6 +83,30 @@ int allegro_display_setup(void)
 		return ERROR;
 	}
 	
+	sample_red = al_load_sample("resources/sounds/1.ogg");
+
+	if (!sample_red) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
+	sample_blue = al_load_sample("resources/sounds/2.ogg");
+
+	if (!sample_blue) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
+	sample_green = al_load_sample("resources/sounds/3.ogg");
+
+	if (!sample_green) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
+	sample_yellow = al_load_sample("resources/sounds/4.ogg");
+
+	if (!sample_yellow) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
 
 //================================= TITLE & ICON ========================================================================
 
@@ -128,7 +155,7 @@ int allegro_draw_simon_off()
 {
 	
 	ALLEGRO_FONT * font = NULL;
-
+	
 	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
 	if (!font) {
 		fprintf(stderr, "Could not load font ttf.\n");
@@ -145,8 +172,9 @@ int allegro_draw_simon_off()
 	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("lightcoral"), ARC_THICKNESS);
 
 	al_draw_text(font, al_color_name("white"), CENTER_W, CENTER_H, ALLEGRO_ALIGN_CENTER, "S I M O N");
-	al_draw_text(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: ");
-	
+	//al_draw_text(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: 100");
+
+	al_draw_textf(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: %d",  (level+1));
 	al_flip_display();
 	
 	return 0;
@@ -155,19 +183,24 @@ int allegro_draw_simon_off()
 void allegro_turn_led_on(int leds)
 {
 	
+
 	switch (leds)
 	{
 	case LED_RED:
 		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("red"), ARC_THICKNESS);
+		al_play_sample(sample_red, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 		break;
 	case LED_BLUE:
 		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, 2 * PI, PI / 2, al_color_name("blue"), ARC_THICKNESS);
+		al_play_sample(sample_blue, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 		break;
 	case LED_GREEN:
 		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI, PI / 2, al_color_name("green"), ARC_THICKNESS);
+		al_play_sample(sample_green, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 		break;
 	case LED_YELLOW:
 		al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, PI / 2, PI / 2, al_color_name("yellow"), ARC_THICKNESS);
+		al_play_sample(sample_yellow, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 		break;
 	}
 
@@ -190,3 +223,50 @@ void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 }
 
 
+int allegro_lost(void)
+{
+	ALLEGRO_FONT * font = NULL;
+	ALLEGRO_FONT * font2 = NULL;
+	ALLEGRO_SAMPLE *sample_game_over = NULL;
+	font = al_load_ttf_font("resources/phreak.ttf", 64, 0);
+	if (!font) {
+		fprintf(stderr, "Could not load font ttf.\n");
+		return ERROR;
+	}
+	font2 = al_load_ttf_font("resources/phreak.ttf", 34, 0);
+	if (!font) {
+		fprintf(stderr, "Could not load font ttf.\n");
+		return ERROR;
+	}
+	sample_game_over = al_load_sample("resources/sounds/game_over.wav");
+
+	if (!sample_game_over) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
+
+
+	al_play_sample(sample_game_over, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+	al_clear_to_color(al_color_name("black"));
+	al_draw_text(font, al_color_name("white"), (CENTER_W), (CENTER_H/2), ALLEGRO_ALIGN_CENTER, "GAME OVER");
+	al_draw_textf(font2, al_color_name("white"),CENTER_W, CENTER_H, ALLEGRO_ALIGN_CENTER, "LEVEL: %d", (level));
+
+	al_flip_display();
+	
+	al_rest(3.0);
+	return 0;
+}
+
+
+void set_color_mode(int color, int color_mode) // color_mode es ON OFF
+{
+	if (color_mode == OFF)
+	{
+		allegro_draw_simon_off();
+	}
+
+	else if (color_mode == ON)
+	{
+		allegro_turn_led_on(color);
+	}
+}

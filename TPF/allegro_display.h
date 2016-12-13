@@ -14,10 +14,10 @@
 #include <allegro5/allegro_audio.h> 
 #include <allegro5/allegro_acodec.h>
 
-#define SCREEN_W    700
+#define SCREEN_W    800
 #define SCREEN_H    600
 #define FPS         60.0
-
+#define RESERVED_SAMPLES   6
 
 #define PI	3.141593
 
@@ -28,13 +28,13 @@
 #define ARC_RADIUS	(al_get_display_height(display) / 3)
 #define ARC_THICKNESS	(al_get_display_height(display) / 4)
 //==============================================================================
-#define LEVEL_X	(al_get_display_width(display) / 10)
+#define LEVEL_X	(al_get_display_width(display) / 6)
 #define LEVEL_Y	((al_get_display_height(display) / 16) * 15)
 
 
-int allegro_display_setup(void);
-
 int configuration_start(void);
+
+int allegro_setup(void);
 
 void configuration_end(void);
 
@@ -47,6 +47,10 @@ int allegro_draw_simon_off();
 int allegro_menu_inicio();
 
 void allegro_turn_led_on(int led);
+
+int allegro_lost(void);
+
+void set_color_mode(int color, int color_mode);
 
 #endif // !ALLEGRO_DISPLAY_H
 

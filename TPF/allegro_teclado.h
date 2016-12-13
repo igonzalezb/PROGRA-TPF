@@ -1,6 +1,7 @@
 #ifndef ALLEGRO_TECLADO_H
 
 #include "allegro_display.h"
+#include "simon.h"
 
 enum MYKEYS {
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_ESC

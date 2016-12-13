@@ -4,6 +4,9 @@
 
 extern ALLEGRO_DISPLAY * display;
 extern ALLEGRO_EVENT_QUEUE *event_queue;
+extern bool exit_simon;
+extern bool player_lost;
+bool exit_teclado = false;
 
 int allegro_teclado_main ()
 {
@@ -16,7 +19,7 @@ int allegro_teclado_main ()
 
 	bool redraw = false;
 
-	bool do_exit = false;
+	//bool do_exit = false;
 
 //=========================================================================================================
 	/*timer = al_create_timer(1.0 / FPS);
@@ -34,11 +37,11 @@ int allegro_teclado_main ()
 	//}
 
 //=========================================================================================================
-	al_clear_to_color(al_color_name("white"));	//Fondo Blanco
+	//al_clear_to_color(al_color_name("white"));	//Fondo Blanco
 
-	allegro_draw_simon_off();
+	//allegro_draw_simon_off();
 
-	al_flip_display();
+	//al_flip_display();
 	
 	
 //==========================================================================================================	
@@ -49,16 +52,19 @@ int allegro_teclado_main ()
 	//al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	//al_start_timer(timer);
-		
-	while (!do_exit)
+	al_flush_event_queue(event_queue);
+
+	while (!exit_simon && !player_lost && !exit_teclado)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		printf("CP3\n");
+		int color;
+		//printf("CP3\n");
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
 			redraw = false;
-			do_exit = true;
+			exit_simon = true;
+			exit_teclado = true;
 		}
 			
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
@@ -78,37 +84,64 @@ int allegro_teclado_main ()
 				
 				led_pressed[LED_GREEN] = true;
 				allegro_turn_led_on(LED_GREEN);
-				al_flip_display();
+				color = LED_GREEN;
+				//al_flip_display();
+				//comparacion_validacion(LED_GREEN);
 			}
 			else if (CLICK_RED)
 			{
 				led_pressed[LED_RED] = true;
 				allegro_turn_led_on(LED_RED);
-				al_flip_display();
+				color = LED_RED;
+				//al_flip_display();
+				//comparacion_validacion(LED_RED);
 			}
 			else if (CLICK_BLUE)
 			{
 				led_pressed[LED_BLUE] = true;
 				allegro_turn_led_on(LED_BLUE);
-				al_flip_display();
+				color = LED_BLUE;
+				//al_flip_display();
+				//comparacion_validacion(LED_BLUE);
 			}
 			else if (CLICK_YELLOW)
 			{
 				led_pressed[LED_YELLOW] = true;
 				allegro_turn_led_on(LED_YELLOW);
-				al_flip_display();
+				color = LED_YELLOW;
+				//al_flip_display();
+				//comparacion_validacion(LED_YELLOW);
 			}
 		
 		}
 		
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
-			if(led_pressed[LED_GREEN] || led_pressed[LED_RED] || led_pressed[LED_BLUE] || led_pressed[LED_YELLOW])
+			printf("se apreto el color: %d", color);
+			if (LED_GREEN)
 			{
 				led_pressed[LED_GREEN] = false;
+				comparacion_validacion(color);
+				redraw = true;
+			}
+			else if (LED_RED)
+			{
 				led_pressed[LED_RED] = false;
+				comparacion_validacion(color);
+				redraw = true;
+			}
+			else if (LED_BLUE)
+			{
 				led_pressed[LED_BLUE] = false;
+				
+				comparacion_validacion(color);
+				redraw = true;
+			}
+			else if (LED_YELLOW)
+			{
 				led_pressed[LED_YELLOW] = false;
+				
+				comparacion_validacion(color);
 				redraw = true;
 			}
 
@@ -129,6 +162,7 @@ int allegro_teclado_main ()
 					allegro_turn_led_on(LED_GREEN);
 					al_flip_display();
 					printf("UP\n");
+					comparacion_validacion(LED_GREEN);
 					//validacion
 					break;
 
@@ -138,6 +172,7 @@ int allegro_teclado_main ()
 					allegro_turn_led_on(LED_BLUE);
 					al_flip_display();
 					printf("DOWM\n");
+					comparacion_validacion(LED_BLUE);
 					//validacion
 					break;
 
@@ -147,6 +182,7 @@ int allegro_teclado_main ()
 					allegro_turn_led_on(LED_YELLOW);
 					al_flip_display();
 					printf("LEFT\n");
+					comparacion_validacion(LED_YELLOW);
 					//validacion
 					break;
 				case ALLEGRO_KEY_RIGHT:
@@ -155,6 +191,7 @@ int allegro_teclado_main ()
 					allegro_turn_led_on(LED_RED);
 					al_flip_display();
 					printf("RIGHT\n");
+					comparacion_validacion(LED_RED);
 					//validacion
 					break;
 			}
@@ -174,7 +211,8 @@ int allegro_teclado_main ()
 
 			case ALLEGRO_KEY_ESCAPE:
 				redraw = false;
-				do_exit = true;
+				exit_simon = true;
+				exit_teclado = true;
 				break;
 			}
 		}
@@ -186,6 +224,7 @@ int allegro_teclado_main ()
 			
 			//al_flip_display();
 			al_rest(0.1);
+			//al_stop_samples();
 			al_clear_to_color(al_color_name("white"));
 			//allegro_draw_bitmap_center(simon, display);
 			allegro_draw_simon_off();
@@ -197,7 +236,7 @@ int allegro_teclado_main ()
 	
 	//al_destroy_timer(timer);
 	//al_destroy_event_queue(event_queue);
-	
+	printf("salgo del teclado\n");
 	return 0;
 }
 

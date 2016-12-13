@@ -1,9 +1,10 @@
 #include "allegro_display.h"
 #include "main.h"
 #include "allegro_teclado.h"
-
+#include "simon.h"
 extern ALLEGRO_DISPLAY * display;
-
+extern bool exit_simon;
+extern bool player_lost;
 #define PLAY_BUTTON_X	(al_get_display_width(display) / 2)
 #define PLAY_BUTTON_Y	((al_get_display_height(display) / 4) * 3)
 
@@ -18,7 +19,7 @@ int allegro_menu_inicio()
 
 	ALLEGRO_BITMAP *menu_simon_play = NULL;
 
-			//FIJARSE LO DE TODAS LAS VARIABLES 1
+	ALLEGRO_SAMPLE *sample_menu = NULL;
 
 	ALLEGRO_FONT * font = NULL;
 	ALLEGRO_FONT * font2 = NULL;
@@ -57,6 +58,12 @@ int allegro_menu_inicio()
 		fprintf(stderr, "Could not load 'disney.ttf'.\n");
 		return ERROR;
 	}
+	sample_menu = al_load_sample("resources/sounds/menu_inicio.wav");
+
+	if (!sample_menu) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
 
 
 	/*timer1 = al_create_timer(1.0 / FPS);
@@ -76,7 +83,7 @@ int allegro_menu_inicio()
 	
 	al_flip_display();
 	printf("CP2\n");
-	
+	al_play_sample(sample_menu, 1.0, 0.0,1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
 	int x1, x2, y1, y2, w, h;
 	int mx, my;
 	
@@ -90,7 +97,7 @@ int allegro_menu_inicio()
 
 		al_wait_for_event(event_queue, &ev1);
 		
-		printf("CP3\n");
+		//printf("CP3\n");
 
 		if (ev1.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			//QUIT
@@ -173,6 +180,7 @@ int allegro_menu_inicio()
 
 		if (play && al_is_event_queue_empty(event_queue))
 		{
+			al_stop_samples();
 		//==========================ESTO SE PUDE SACAR=======================================
 			al_clear_to_color(al_color_name("black"));
 			al_draw_text(font, al_color_name("white"), (CENTER_W), (CENTER_H), ALLEGRO_ALIGN_CENTER, "LOADING...");
@@ -180,16 +188,24 @@ int allegro_menu_inicio()
 			al_rest(1.5);
 		//====================================================================================
 			//VOY AL JUEG0
-			if (allegro_teclado_main())
-			{
-				fprintf(stderr, "Failed allegro_teclado_main!\n");
-				//DISTROY
+			//if (allegro_teclado_main())
+			//{
+			//	fprintf(stderr, "Failed allegro_teclado_main!\n");
+			//	//DISTROY
+			//	return ERROR;
+			//}
+			
+			if(simon_main())
 				return ERROR;
-			}
-			//VUELVO AL MENU PRINCIPAL
+
 			al_flush_event_queue(event_queue);
+			exit_simon = false;
+			player_lost = false;
+			//VUELVO AL MENU PRINCIPAL
+			al_play_sample(sample_menu, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
 			play = false;
 			redraw1 = true;
+			al_flush_event_queue(event_queue);
 			printf("CP5\n");
 		}
 
@@ -202,7 +218,7 @@ int allegro_menu_inicio()
 
 			al_flip_display();
 			redraw1 = false;
-
+			play = false;
 			printf("CP4\n");
 
 

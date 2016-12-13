@@ -1,11 +1,16 @@
 
-
+#ifdef _WIN32		//SOLO PARA QUE ME ANDE (iña)THREADS EN WINDOWS
+//#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_NONSTDC_NO_WARNINGS
+#define HAVE_STRUCT_TIMESPEC
+#endif
 #ifndef MAIN_H
 
 #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define HAVE_STRUCT_TIMESPEC	//SOLO PARA QUE ME ANDE (iña)THREADS EN WINDOWS
+
 #include <pthread.h>
 
 
@@ -18,7 +23,7 @@ enum colores { RED, GREEN, BLUE, YELLOW };
 #define OFF     0
 
 
-#define MAX_LEVEL 100
+#define MAX_LEVEL 10
 
 #define TRUE 1
 #define FALSE 0

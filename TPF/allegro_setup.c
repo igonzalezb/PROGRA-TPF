@@ -1,7 +1,7 @@
 #include "allegro_display.h"
 #include "main.h"
 
-int configuration_start(void)
+int allegro_setup(void)
 {
 	if (!al_init()) {
 		fprintf(stderr, "Failed to initialize allegro!\n");
@@ -39,6 +39,21 @@ int configuration_start(void)
 		return ERROR;
 	}
 
+	if (!al_install_audio()) {
+		fprintf(stderr, "failed to initialize audio!\n");
+		return ERROR;
+	}
+
+	if (!al_init_acodec_addon()) {
+		fprintf(stderr, "failed to initialize audio codecs!\n");
+		return ERROR;
+	}
+
+	if (!al_reserve_samples(RESERVED_SAMPLES)) {
+		fprintf(stderr, "failed to reserve samples!\n");
+		return ERROR;
+	}
+
 	al_init_font_addon();
 	
 	al_init_ttf_addon();
@@ -55,6 +70,7 @@ void configuration_end(void)
 	al_uninstall_keyboard();
 	al_uninstall_mouse();
 	al_shutdown_primitives_addon();
+	al_uninstall_audio();
 	al_shutdown_font_addon();
 	al_shutdown_ttf_addon();
 	
