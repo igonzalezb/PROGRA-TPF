@@ -3,6 +3,7 @@
 ALLEGRO_DISPLAY * display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 extern int level;
+ALLEGRO_FONT * font = NULL;
 ALLEGRO_SAMPLE *sample_red = NULL;
 ALLEGRO_SAMPLE *sample_blue = NULL;
 ALLEGRO_SAMPLE *sample_green = NULL;
@@ -80,6 +81,12 @@ int configuration_start(void)
 		al_destroy_bitmap(cursor_image);
 		return ERROR;
 	}
+
+	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
+	if (!font) {
+		fprintf(stderr, "Could not load font ttf.\n");
+		return ERROR;
+	}
 	
 	sample_red = al_load_sample("resources/sounds/red.wav");
 
@@ -139,6 +146,7 @@ int configuration_start(void)
 		return ERROR;
 	}
 	
+	//FIJARSE SI FALTA ALGUNO
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
 	al_destroy_mouse_cursor(cursor);
@@ -151,15 +159,6 @@ int configuration_start(void)
 
 int allegro_draw_simon_off()
 {
-	
-	ALLEGRO_FONT * font = NULL;
-	
-	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
-	if (!font) {
-		fprintf(stderr, "Could not load font ttf.\n");
-		return ERROR;
-	}
-
 	al_clear_to_color(al_color_name("white"));
 	al_draw_filled_circle(CENTER_W, CENTER_H, CENTER_H, al_color_name("black"));
 	al_draw_filled_circle(CENTER_W, CENTER_H, (CENTER_H / 3), al_color_name("grey"));
@@ -223,10 +222,10 @@ void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 
 int game_lost(void)
 {
-	ALLEGRO_FONT * font = NULL;
+	ALLEGRO_FONT * font1 = NULL;
 	ALLEGRO_FONT * font2 = NULL;
 	ALLEGRO_SAMPLE *sample_game_over = NULL;
-	font = al_load_ttf_font("resources/phreak.ttf", 64, 0);
+	font1 = al_load_ttf_font("resources/phreak.ttf", 64, 0);
 	if (!font) {
 		fprintf(stderr, "Could not load font ttf.\n");
 		return ERROR;
@@ -252,6 +251,10 @@ int game_lost(void)
 	al_flip_display();
 	
 	al_rest(3.0);
+	al_destroy_font(font1);
+	al_destroy_font(font2);
+	al_destroy_sample(sample_game_over);
+
 	return 0;
 }
 

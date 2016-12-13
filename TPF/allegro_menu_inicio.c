@@ -21,16 +21,15 @@ int allegro_menu_inicio()
 
 	ALLEGRO_SAMPLE *sample_menu = NULL;
 
-	ALLEGRO_FONT * font = NULL;
-	ALLEGRO_FONT * font2 = NULL;
-
+	ALLEGRO_FONT * font_menu = NULL;
+	
 	bool do_exit1 = false;
 
 	bool play = false;
 
 	bool redraw1 = false;
 
-	//=====================================================================================================================================================================
+	//=======FALTA CADA DESTROY ANTES DE ERROR==============================================================================================================================================================
 	menu_simon = al_load_bitmap("resources/menu_simon.png");
 	if (!menu_simon) {
 		fprintf(stderr, "Failed to create menu_simon!\n");
@@ -45,19 +44,14 @@ int allegro_menu_inicio()
 
 	
 
-	font = al_load_ttf_font("resources/phreak.ttf", 54, 0);
+	font_menu = al_load_ttf_font("resources/phreak.ttf", 54, 0);
 
-	if (!font) {
+	if (!font_menu) {
 		fprintf(stderr, "Could not load 'atari.ttf'.\n");
 		return ERROR;
 	}
 
-	font2 = al_load_ttf_font("resources/disney.ttf", 26, 0);
 
-	if (!font2) {
-		fprintf(stderr, "Could not load 'disney.ttf'.\n");
-		return ERROR;
-	}
 	sample_menu = al_load_sample("resources/sounds/menu_inicio.wav");
 
 	if (!sample_menu) {
@@ -66,19 +60,11 @@ int allegro_menu_inicio()
 	}
 
 
-	/*timer1 = al_create_timer(1.0 / FPS);
-	if (!timer1) {
-		fprintf(stderr, "Failed to create timer!\n");
-		return ERROR;
-	}*/
-	//======================================================================================================================================================================
-	
-
 
 	//=======================================================================================================================================================================	
 	
 	allegro_draw_bitmap_scaled(menu_simon);
-	al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
+	al_draw_text(font_menu, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
 	//al_draw_text(font2, al_color_name("white"), INFO_BUTTON_X, INFO_BUTTON_Y, ALLEGRO_ALIGN_CENTER, "INFO");
 	
 	al_flip_display();
@@ -87,8 +73,6 @@ int allegro_menu_inicio()
 	int x1, x2, y1, y2, w, h;
 	int mx, my;
 	
-	//METER INSTRUCCIONES
-
 	//al_start_timer(timer1);
 
 	while (!do_exit1)
@@ -115,7 +99,7 @@ int allegro_menu_inicio()
 
 		else if (ev1.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
-			al_get_text_dimensions(font, ": : PLAY : :", &x1, &y1, &w, &h);
+			al_get_text_dimensions(font_menu, ": : PLAY : :", &x1, &y1, &w, &h);
 			printf("x1: %X", x1);
 			x1 = PLAY_BUTTON_X - w / 2;
 			y1 = y1 + PLAY_BUTTON_Y;
@@ -129,7 +113,7 @@ int allegro_menu_inicio()
 			if (((x1 <= mx) && (mx <= x2))  && ((my >= y1) && (my <= y2)))
 			{
 				allegro_draw_bitmap_scaled(menu_simon_play);
-				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
+				al_draw_text(font_menu, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
 				al_flip_display();
 			}
 			
@@ -152,7 +136,7 @@ int allegro_menu_inicio()
 			if (ev1.keyboard.keycode == ALLEGRO_KEY_SPACE)
 			{
 				allegro_draw_bitmap_scaled(menu_simon_play);
-				al_draw_text(font, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
+				al_draw_text(font_menu, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
 				al_flip_display();
 				printf("SPACE\n");
 				
@@ -183,7 +167,7 @@ int allegro_menu_inicio()
 			al_stop_samples();
 		//==========================ESTO SE PUDE SACAR=======================================
 			al_clear_to_color(al_color_name("black"));
-			al_draw_text(font, al_color_name("white"), (CENTER_W), (CENTER_H), ALLEGRO_ALIGN_CENTER, "LOADING...");
+			al_draw_text(font_menu, al_color_name("white"), (CENTER_W), (CENTER_H), ALLEGRO_ALIGN_CENTER, "LOADING...");
 			al_flip_display();
 			al_rest(1.5);
 		//====================================================================================
@@ -213,7 +197,7 @@ int allegro_menu_inicio()
 		{
 			al_clear_to_color(al_color_name("black"));
 			allegro_draw_bitmap_scaled(menu_simon);
-			al_draw_text(font, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
+			al_draw_text(font_menu, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
 			//al_draw_text(font2, al_color_name("white"), INFO_BUTTON_X, INFO_BUTTON_Y, ALLEGRO_ALIGN_CENTER, "INFO");
 
 			al_flip_display();
@@ -227,7 +211,7 @@ int allegro_menu_inicio()
 
 	}
 
-	//DISTROY
+	//DISTROY de esta funcion
 	//
 	return 0;
 }
