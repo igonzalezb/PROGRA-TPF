@@ -7,7 +7,7 @@
 #include <wiringPi.h>
 
 
-#include "rpi_setup.h"
+//#include "rpi_setup.h"
 
 
 

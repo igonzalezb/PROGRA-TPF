@@ -1,23 +1,6 @@
 //#define _RASPBERRY_PI_
 #define _ALLEGRO_PC_
 
-#ifdef _RASPBERRY_PI_
-#include "rpi_setup.h"
-#include "rpi_output.h"
-#include "rpi_input.h"
-#define BASE_TIME 500000
-#define MIN_TIME 10000
-#define WAIT_T	usleep
-#endif
-
-
-#ifdef _ALLEGRO_PC_	//WINDOWS AGREGAR LINUX
-#include "allegro_display.h"
-#include "allegro_teclado.h"
-#define BASE_TIME 0.5
-#define MIN_TIME 0.01
-#define WAIT_T al_rest
-#endif
 
 
 #ifndef MAIN_H
@@ -25,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 
 
 enum platform { RASPBERRYPI, ALLEGRO };
@@ -48,4 +32,24 @@ enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP }
 
 
 #endif // MAIN_H
+
+#ifdef _RASPBERRY_PI_
+#include <stdbool.h>
+#include <unistd.h>
+#include "rpi_setup.h"
+#include "rpi_output.h"
+#include "rpi_input.h"
+#define BASE_TIME 500000
+#define MIN_TIME 10000
+#define WAIT_T	usleep
+#endif
+
+
+#ifdef _ALLEGRO_PC_	//WINDOWS AGREGAR LINUX
+#include "allegro_display.h"
+#include "allegro_teclado.h"
+#define BASE_TIME 0.5
+#define MIN_TIME 0.01
+#define WAIT_T al_rest
+#endif
 

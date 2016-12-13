@@ -4,8 +4,6 @@
 #ifndef _SIMON_H_
 #define _SIMON_H_
 
-
-//#include <unistd.h>
 #include <time.h>
 
 //#include "rpi_input.h"

@@ -1,10 +1,10 @@
 
 //////////////////////////////////// RPI_INPUT ////////////////////////////////////
 
-#include "rpi_input.h"
 #include "main.h"
-#include "rpi_output.h"
+
 #include "simon.h"
+
 extern pinsT buttons[];
 
 
@@ -13,7 +13,7 @@ extern bool player_lost;
 bool exit_teclado = false;
 //////////////// thread_buttons ////////////////
 
-void buttons_teclado_input(void);
+void buttons_teclado_input (void)
 {
         int color;
         while (!exit_simon && !player_lost && !exit_teclado)
@@ -88,13 +88,3 @@ void buttons_teclado_input(void);
                 }
         
 }
-
-// NO OLVIDAR CREAR UN BUFFER CIRCULAR, EL MAIN DEBERIA CONTENER:
-/*
- CIRCULAR_BUFFER nombre_del_buffer;
- create_buffer(&nombre_del_buffer, TAMANO_BUFFER);  // TAMANNO_BUFFER es un #depausee
- 
- //UNA VEZ QUE SE TERMINA DE USAR EL BUFFER CIRCULAR:
- end_buffer(&prueba);
- */
-
