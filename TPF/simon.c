@@ -36,11 +36,12 @@ int simon_main (void)
         
                 
         game_over (level); //definir y declarar esta funcion
-	level = 0;
+	
 	printf("Perdiste\n");
 	
 	if(game_lost())
 		return ERROR;
+	level = 0;
 	
 	
 	return 0;

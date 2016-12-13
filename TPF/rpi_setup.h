@@ -8,8 +8,7 @@
 #define _RPI_SETUP_H_
 
 #include <wiringPi.h>
-#include <pthread.h>
-
+#include "libaudio.h"
 
 #define CANT_COLORS 4
 

@@ -224,6 +224,7 @@ void buttons_teclado_input(void)
 			al_rest(0.1);
 			//al_stop_samples();
 			al_clear_to_color(al_color_name("white"));
+			al_stop_samples();
 			//allegro_draw_bitmap_center(simon, display);
 			allegro_draw_simon_off();
 			al_flip_display();

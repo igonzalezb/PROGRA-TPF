@@ -14,7 +14,10 @@
 //pthread_t tid_simon, tid_input;
 
 //CIRCULAR_BUFFER buffer_buttons; //creo aca
-
+char AudioFile_RED[]="./resources/sounds/red.wav";
+char AudioFile_GREEN[]="./resources/sounds/green.wav";
+char AudioFile_BLUE[]="./resources/sounds/blue.wav";
+char AudioFile_YELLOW[]="./resources/sounds/yellow.wav";
 
 pinsT leds[] = {{"RED",7,OUTPUT,LOW}, //VERRRR los "OFF" //ver LED_RED ( nombres) si quedan en enum o no
                 {"GREEN",1,OUTPUT,LOW},
@@ -31,19 +34,13 @@ pinsT buttons[] = {{"RED",0,INPUT,LOW},
 int configuration_start () //poner que devuelva indicacion de exito o error.
 {
         wiringPiSetup();
+
+        init_sound();
         
         pin_out_or_in ();
     
         set_pin_zero_or_one ();
-        // printf("wDigital RED: %d\n", digitalRead(buttons[RED].pin ));
-        // printf("wDigital blue: %d\n", digitalRead(buttons[BLUE].pin ));
-        // printf("wDigital green: %d\n", digitalRead(buttons[GREEN].pin ));
-        // printf("wDigital yellow: %d\n", digitalRead(buttons[YELLOW].pin ));
-        // // create_buffer(&buffer_buttons, TAMANO_BUFFER);
-    
-        // pthread_create (&tid_simon ,NULL ,thread_simon ,NULL);
-    
-        // pthread_create (&tid_input ,NULL ,thread_input ,NULL);
+        
         simon_main ();
             
         return 0;

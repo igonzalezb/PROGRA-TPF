@@ -81,25 +81,25 @@ int configuration_start(void)
 		return ERROR;
 	}
 	
-	sample_red = al_load_sample("resources/sounds/1.wav");
+	sample_red = al_load_sample("resources/sounds/red.wav");
 
 	if (!sample_red) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_blue = al_load_sample("resources/sounds/2.wav");
+	sample_blue = al_load_sample("resources/sounds/blue.wav");
 
 	if (!sample_blue) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_green = al_load_sample("resources/sounds/3.wav");
+	sample_green = al_load_sample("resources/sounds/green.wav");
 
 	if (!sample_green) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_yellow = al_load_sample("resources/sounds/4.wav");
+	sample_yellow = al_load_sample("resources/sounds/yellow.wav");
 
 	if (!sample_yellow) {
 		printf("Audio clip sample not loaded!\n");
@@ -261,6 +261,7 @@ void set_color_mode(int color, int color_mode) // color_mode es ON OFF
 	if (color_mode == OFF)
 	{
 		allegro_draw_simon_off();
+		al_stop_samples();
 	}
 
 	else if (color_mode == ON)

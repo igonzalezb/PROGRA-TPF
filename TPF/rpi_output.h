@@ -7,8 +7,10 @@
 
 #include <wiringPi.h>
 
+#define PLAY_TIME 1
 
-int game_lost (void);
 void set_color_mode (int color, int color_mode);
-
+void play_color(char * AudioFile);
+void do_something(void);
+int game_lost(void);
 #endif // _RPI_OUTPUT_H_
