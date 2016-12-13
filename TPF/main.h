@@ -1,17 +1,30 @@
+//#define _RASPBERRY_PI_
+#define _ALLEGRO_PC_
 
-#ifdef _WIN32		//SOLO PARA QUE ME ANDE (iña)THREADS EN WINDOWS
-//#define _CRT_SECURE_NO_WARNINGS
-//#define _CRT_NONSTDC_NO_WARNINGS
-#define HAVE_STRUCT_TIMESPEC
+#ifdef _RASPBERRY_PI_
+#include "rpi_setup.h"
+#include "rpi_output.h"
+#include "rpi_input.h"
+#define BASE_TIME 500000
+#define MIN_TIME 10000
+#define WAIT_T	usleep
 #endif
+
+
+#ifdef _ALLEGRO_PC_	//WINDOWS AGREGAR LINUX
+#include "allegro_display.h"
+#include "allegro_teclado.h"
+#define BASE_TIME 0.5
+#define MIN_TIME 0.01
+#define WAIT_T al_rest
+#endif
+
+
 #ifndef MAIN_H
 
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#include <pthread.h>
 
 
 enum platform { RASPBERRYPI, ALLEGRO };
@@ -23,10 +36,8 @@ enum colores { RED, GREEN, BLUE, YELLOW };
 #define OFF     0
 
 
-#define MAX_LEVEL 10
+#define MAX_LEVEL 100
 
-#define TRUE 1
-#define FALSE 0
 #define ERROR -1
 
 enum leds {
@@ -35,8 +46,6 @@ enum leds {
 
 enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP };
 
-//int configuration_start(int platform);
-//int configuration_end(int platform);
 
 #endif // MAIN_H
 

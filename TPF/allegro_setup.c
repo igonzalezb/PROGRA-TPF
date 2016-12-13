@@ -1,4 +1,4 @@
-#include "allegro_display.h"
+//#include "allegro_display.h"
 #include "main.h"
 
 int allegro_setup(void)

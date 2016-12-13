@@ -1,8 +1,5 @@
 #ifndef ALLEGRO_TECLADO_H
 
-#include "allegro_display.h"
-#include "simon.h"
-
 enum MYKEYS {
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_ESC
 };
@@ -23,7 +20,7 @@ double getDistance(struct Point a);
 
 
 
-int allegro_teclado_main();
+void buttons_teclado_input(void);
 
 
 #endif // !ALLEGRO_TECLADO_H

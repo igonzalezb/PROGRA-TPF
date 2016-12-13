@@ -1,6 +1,6 @@
-#include "allegro_display.h"
+//#include "allegro_display.h"
 #include "main.h"
-#include "allegro_teclado.h"
+//#include "allegro_teclado.h"
 #include "simon.h"
 extern ALLEGRO_DISPLAY * display;
 extern bool exit_simon;

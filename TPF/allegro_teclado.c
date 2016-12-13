@@ -1,14 +1,12 @@
 #include "main.h" 
-#include "allegro_teclado.h"
-
-
+#include "simon.h"
 extern ALLEGRO_DISPLAY * display;
 extern ALLEGRO_EVENT_QUEUE *event_queue;
 extern bool exit_simon;
 extern bool player_lost;
 bool exit_teclado = false;
 
-int allegro_teclado_main ()
+void buttons_teclado_input(void)
 {
 	//ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	//ALLEGRO_TIMER *timer = NULL;
@@ -118,26 +116,26 @@ int allegro_teclado_main ()
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
 			printf("se apreto el color: %d", color);
-			if (LED_GREEN)
+			if (led_pressed[LED_GREEN])
 			{
 				led_pressed[LED_GREEN] = false;
 				comparacion_validacion(color);
 				redraw = true;
 			}
-			else if (LED_RED)
+			else if (led_pressed[LED_RED])
 			{
 				led_pressed[LED_RED] = false;
 				comparacion_validacion(color);
 				redraw = true;
 			}
-			else if (LED_BLUE)
+			else if (led_pressed[LED_BLUE])
 			{
 				led_pressed[LED_BLUE] = false;
 				
 				comparacion_validacion(color);
 				redraw = true;
 			}
-			else if (LED_YELLOW)
+			else if (led_pressed[LED_YELLOW])
 			{
 				led_pressed[LED_YELLOW] = false;
 				
@@ -237,7 +235,7 @@ int allegro_teclado_main ()
 	//al_destroy_timer(timer);
 	//al_destroy_event_queue(event_queue);
 	printf("salgo del teclado\n");
-	return 0;
+	
 }
 
 

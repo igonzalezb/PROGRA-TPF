@@ -1,5 +1,3 @@
-#include "allegro_display.h"
-#include "allegro_teclado.h"
 #include "main.h"
 
 ALLEGRO_DISPLAY * display = NULL;
@@ -83,25 +81,25 @@ int configuration_start(void)
 		return ERROR;
 	}
 	
-	sample_red = al_load_sample("resources/sounds/1.ogg");
+	sample_red = al_load_sample("resources/sounds/1.wav");
 
 	if (!sample_red) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_blue = al_load_sample("resources/sounds/2.ogg");
+	sample_blue = al_load_sample("resources/sounds/2.wav");
 
 	if (!sample_blue) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_green = al_load_sample("resources/sounds/3.ogg");
+	sample_green = al_load_sample("resources/sounds/3.wav");
 
 	if (!sample_green) {
 		printf("Audio clip sample not loaded!\n");
 		return -1;
 	}
-	sample_yellow = al_load_sample("resources/sounds/4.ogg");
+	sample_yellow = al_load_sample("resources/sounds/4.wav");
 
 	if (!sample_yellow) {
 		printf("Audio clip sample not loaded!\n");
@@ -223,7 +221,7 @@ void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 }
 
 
-int allegro_lost(void)
+int game_lost(void)
 {
 	ALLEGRO_FONT * font = NULL;
 	ALLEGRO_FONT * font2 = NULL;

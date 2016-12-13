@@ -41,3 +41,5 @@
 *.config
 /TPF/Debug
 /TPF/Release
+/TPF/x64
+/TPF/TPF.APS

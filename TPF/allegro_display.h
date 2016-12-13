@@ -48,7 +48,7 @@ int allegro_menu_inicio();
 
 void allegro_turn_led_on(int led);
 
-int allegro_lost(void);
+int game_lost(void);
 
 void set_color_mode(int color, int color_mode);
 

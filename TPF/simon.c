@@ -1,6 +1,6 @@
 
 #include "simon.h"
-#include "allegro_teclado.h"
+
 #include "main.h"
 int level = 0;
 bool exit_simon = false;
@@ -13,38 +13,37 @@ extern bool exit_teclado;
 
 int simon_main (void)
 {
-	//int input_color_number;//, time_color_on = 1000, time_color_off = 1000; // ver si esta bien iniciar los times con 1 segundo (1000)
-        carga_secuencia_colores(secuencia);
-	double time = 0.5;
-        //do
-        //{
+	carga_secuencia_colores(secuencia);
+	double time = BASE_TIME;
+        
                 for (level = 0; (level <= MAX_LEVEL) && (player_lost != true) && (exit_simon != true); level++)
                 {
-			//al_rest(0.1);
+			
 			muestra_secuencia (secuencia, level, time);//, time_color_on, time_color_off);
                         input_color_number = 0;
-                        
-			//al_rest(0.1);
-			//exit_teclado = false;
-			allegro_teclado_main();
+                       
+			buttons_teclado_input();
+			
 			exit_teclado = false;
 			printf("simon for\n");
-			if (time >= 0.1)
+			if (time >= MIN_TIME)
 			{
-				time = time - 0.01;
+				time = time - MIN_TIME;
 			}
 			
 
                 }
-        //} while (!player_lost && !exit_simon);
+        
                 
         game_over (level); //definir y declarar esta funcion
-	printf("perdiste\n");
-	if(allegro_lost())
-		return ERROR;
 	level = 0;
+	printf("Perdiste\n");
+	
+	if(game_lost())
+		return ERROR;
+	
+	
 	return 0;
-	//set_color_mode(secuencia[0], OFF);
 }
 
 
@@ -84,11 +83,11 @@ void muestra_secuencia (int secuencia[], int level, double time)
     for (i = 0; i <= level; i++)
     {
 	set_color_mode(secuencia[i], OFF);
-	al_rest(time);
+	WAIT_T(time);
         set_color_mode (secuencia[i], ON);
-        al_rest (time);   //HACER EL TIMER. como esta en un thread, esto poner tambien en thread (para permitir esc) REVISAR, BUSCAR ALTERNATIVA
+        WAIT_T(time);
         set_color_mode (secuencia[i], OFF);
-        al_rest (time);
+        WAIT_T(time);
     }
 }
 
@@ -108,14 +107,14 @@ int comparacion_validacion (int color)
 		++input_color_number;
 		printf("validacion bien, siguiente\n");
 		
-		//return 0;
+		
 	}
 	
 	else if (color != secuencia[input_color_number])
 	{
 	        player_lost = true;
 		printf("validacion perdiste\n");
-	       // return 1;
+	       
 	}
 	
 	printf("salgo de validacion\n");
