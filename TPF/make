@@ -1,0 +1,16 @@
+CC := gcc
+OPTIONS = 
+OBJS = 
+SRC =
+HEADERS = 
+
+
+simon:${OBJS}
+	${CC} ${OPTIONS} ${OBJS} -o simon
+
+${OBJS}: ${SRC} ${HEADERS}
+	${CC} ${OPTIONS} -c ${SRC}
+
+clean:
+
+	rm *.o
