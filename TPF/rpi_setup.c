@@ -1,37 +1,56 @@
 
-//////////////////////////////////// RPI_SETUP ////////////////////////////////////
 
-// ADEMAS TENER EN CUENTA QUE SI SE COMPILA DESDE VENTANA DE COMANDO:
+/////////////////////////////////////////////// RPI_SETUP /////////////////////////////////////////////////
+                                       // S I M O N - Raspberry Pi //
 
-// gcc ....c -o ... -lwiringPi
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Trabajo Práctico Final - Programacion 1
+//
+//  Entrega: 15 de Diciembre de 2016                       ////////////////
+//                                                        //  S I M O N //
+//  Grupo 6:González Bigliardi, Iñaki                    ////////////////
+//          Lago, Valentina
+//          Müller, Malena
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//           Configuraciones necesarias para jugar con botones y leds, desde la Raspberry Pi.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #include "rpi_setup.h"
-#include "simon.h"
-#include "rpi_input.h"
-#include "main.h"
-//TODO ESTO ES GLOBAL, EN EL ARCHIVO HARWARE.C  HICE UN EXTERN DE pinsT leds y pinsT buttons
 
-//pthread_t tid_simon, tid_input;
 
-//CIRCULAR_BUFFER buffer_buttons; //creo aca
-char AudioFile_RED[]="./resources/sounds/red.wav";
-char AudioFile_GREEN[]="./resources/sounds/green.wav";
-char AudioFile_BLUE[]="./resources/sounds/blue.wav";
-char AudioFile_YELLOW[]="./resources/sounds/yellow.wav";
 
-pinsT leds[] = {{"RED",7,OUTPUT,LOW}, //VERRRR los "OFF" //ver LED_RED ( nombres) si quedan en enum o no
+char AudioFile_RED[] = "./resources/sounds/red.wav";
+char AudioFile_GREEN[] = "./resources/sounds/green.wav";
+char AudioFile_BLUE[] = "./resources/sounds/blue.wav";
+char AudioFile_YELLOW[] = "./resources/sounds/yellow.wav";
+
+pinsT leds[] = {{"RED",7,OUTPUT,LOW},           // Informacion inicial de cada LED.
                 {"GREEN",1,OUTPUT,LOW},
                 {"BLUE",5,OUTPUT,LOW},
                 {"YELLOW",2,OUTPUT,LOW}};
         
-pinsT buttons[] = {{"RED",0,INPUT,LOW},
+pinsT buttons[] = {{"RED",0,INPUT,LOW},         // Informacion inicial de cada BOTON.
                    {"GREEN",4,INPUT,LOW},
                    {"BLUE",6,INPUT,LOW},
                    {"YELLOW",3,INPUT,LOW}};
 
-////////////////////// configuration_start //////////////////////
 
-int configuration_start () //poner que devuelva indicacion de exito o error.
+////////////////////////////////////// configuration_start ///////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: 0.
+//
+//  Se lleva a cabo la configuracion necesaria para el correcto funcionamiento del juego.
+//  Se prepara el hardware necesario en el modo deseado: Sonido, direccion y valor inicial de pines.
+//  Se llama al juego en si (simon_main).
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int configuration_start (void)
 {
         wiringPiSetup();
 
@@ -47,10 +66,17 @@ int configuration_start () //poner que devuelva indicacion de exito o error.
 }
 
 
-////////////////////// configuration_end //////////////////////
-// ver si devolver indicacion de error o no
+//////////////////////////////////////// configuration_end ////////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: Nada.
+//
+//
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void configuration_end () //ver como lograr acceder a la estructura leds y buttons. haciendo que el prototipo de la funcion sirva para las dos plataformas.
+void configuration_end (void)
 {
         //end_buffer(&buffer_buttons);
         //pthread_join(tid_input,NULL); //poner que devuelva indicacion de exito o error. identificar si hubo error
@@ -60,28 +86,46 @@ void configuration_end () //ver como lograr acceder a la estructura leds y butto
 }
 
 
-////////////////////// pin_out_or_in //////////////////////
+////////////////////////////////////////// pin_out_or_in //////////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: Nada.
+//
+//  Configura la direccion de cada pin que sera usado de la Raspberry Pi.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void pin_out_or_in()
+void pin_out_or_in (void)
 {
     int i;
-    for (i=0;i<=CANT_COLORS;i++)
+    
+    for (i=0 ; i <= CANT_COLORS ;i++ )
     {
             pinMode (leds[i].pin, leds[i].direction);
+        
             pinMode (buttons[i].pin, buttons[i].direction);
     }
 }
 
 
-////////////////////// set_pin_zero_or_one //////////////////////
+//////////////////////////////////////// set_pin_zero_or_one //////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: Nada.
+//
+//  Configura el valor inicial de cada pin que sera usado como led, de la Raspberry Pi.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void set_pin_zero_or_one()
+void set_pin_zero_or_one (void)
 {
     int i;
-    for (i=0;i<=CANT_COLORS;i++)
+    
+    for (i=0 ;i <= CANT_COLORS ;i++ )
     {
             digitalWrite (leds[i].pin, leds[i].value);
-            //digitalWrite (buttons[i].pin, buttons[i].value);
     }
 }
 

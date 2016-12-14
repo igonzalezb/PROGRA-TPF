@@ -1,14 +1,17 @@
 #ifndef ALLEGRO_TECLADO_H
+#define ALLEGRO_TECLADO_H
 
-enum MYKEYS {
-	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_ESC
-};
+#include "main.h" 
+#include "simon.h"
 
-struct Point {
+enum MYKEYS { KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_ESC};
+
+struct Point 
+{
 	long x, y;
 };
 
-double getDistance(struct Point a);
+
 
 #define CLICK_GREEN ((ev.mouse.x >= 0 && ev.mouse.x <= CENTER_W) && (ev.mouse.y >= 0 && ev.mouse.y <= CENTER_H) && (getDistance(a) >= ((ARC_RADIUS) - ARC_THICKNESS / 2)) && (getDistance(a) <= ((ARC_RADIUS) + ARC_THICKNESS / 2)))
 
@@ -21,6 +24,6 @@ double getDistance(struct Point a);
 
 
 void buttons_teclado_input(void);
+double getDistance(struct Point a);
 
-
-#endif // !ALLEGRO_TECLADO_H
+#endif // ALLEGRO_TECLADO_H

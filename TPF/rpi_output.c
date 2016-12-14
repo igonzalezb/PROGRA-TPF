@@ -1,93 +1,131 @@
 
-//////////////////////////////////// RPI_OUTPUT ////////////////////////////////////
+
+//////////////////////////////////////////// RPI_OUTPUT ///////////////////////////////////////////////
+                                    // S I M O N - Raspberry Pi //
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Trabajo Práctico Final - Programacion 1
+//
+//  Entrega: 15 de Diciembre de 2016                       ////////////////
+//                                                        //  S I M O N //
+//  Grupo 6:González Bigliardi, Iñaki                    ////////////////
+//          Lago, Valentina
+//          Müller, Malena
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//        Acciones del output, siempre y cuando la logica del juego permita salida de datos.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #include "rpi_output.h"
-#include "main.h"
-#include "rpi_setup.h"
+
 
 extern pinsT leds[];
 extern char AudioFile_RED[];
 extern char AudioFile_GREEN[];
 extern char AudioFile_BLUE[];
 extern char AudioFile_YELLOW[];
-////////////////////////////// set_color_mode() ////////////////////////////////
 
+//////////////////////////////////////// set_color_mode ///////////////////////////////////////////////
+//
+//  Recibe: color y color_mode (esta ultima es el estado a modificar del pin: HIGH
+//
+//  Devuelve: Nada.
+//
+//  Se prende o se apaga el led indicado.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-void set_color_mode (int color, int color_mode) // color_mode es ON OFF. ver si usar WIRING PI EN VEZ DE HARDWARE.H
+void set_color_mode (int color, int color_mode)
 {
-        	//printf("Pongo el %d, en %d\n", color, color_mode);
-        	leds[color].value = color_mode;
-        	digitalWrite (leds[color].pin, leds[color].value);
-        	if (color_mode == ON)
-        	{
-        		switch(color)
+        leds[color].value = color_mode;
+    
+        digitalWrite (leds[color].pin, leds[color].value);
+    
+        if (color_mode == ON)
+        {
+                switch(color)
         		{
-        			case LED_RED:
-        			play_color(AudioFile_RED);
-        			do_something();
-        			break;
-        			case LED_GREEN:
-        			play_color(AudioFile_GREEN);
-        			do_something();
-        			break;
-        			case LED_BLUE:
-        			play_color(AudioFile_BLUE);
-        			do_something();
-        			break;
-        			case LED_YELLOW:
-        			play_color(AudioFile_YELLOW);
-        			do_something();
-        			break;
+                        case LED_RED:
+                        play_color(AudioFile_RED);
+                        do_something();
+                        break;
+                        
+                        case LED_GREEN:
+                        play_color(AudioFile_GREEN);
+                        do_something();
+                        break;
+                        
+                        case LED_BLUE:
+                        play_color(AudioFile_BLUE);
+                        do_something();
+                        break;
+                        
+                        case LED_YELLOW:
+                        play_color(AudioFile_YELLOW);
+                        do_something();
+                        break;
         		}
-        	}
-        	else if (color_mode == OFF)
-        		stop_sound();
-
+        }
+        else if (color_mode == OFF)
+        {
+                stop_sound();
+        }
 }
 
 
-void play_color(char * AudioFile) // Non blocking Audio File
+////////////////////////////////////////// play_color /////////////////////////////////////////////////
+//
+//  Recibe: AudioFile.
+//
+//  Devuelve: Nada.
+//
+//  Se prende la musica del color desde el que se llama.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void play_color (char * AudioFile)                      // Non blocking Audio File
 {
-	
- 	stop_sound();						  // stop previous audio track (Just in case)
+        stop_sound();                                   // stop previous audio track (Just in case)
  	
-	if(player_status()==READY)
-	{
+        if(player_status()==READY)
+        {
 			
-		printf("Playing: %s \n",AudioFile);
+                printf("Playing: %s \n",AudioFile);
 	
-		set_file_to_play(AudioFile);      // Load file 			
+                set_file_to_play(AudioFile);            // Load file
 	
-		play_sound(); 					  // Play File (Non Blocking)
-
-		return;
-	}
-	else
-	{
-			
-		printf("System not ready did you run init_sound() ? \n");
+                play_sound();                           // Play File (Non Blocking)
+        }
+        else
+        {
+                printf("System not ready did you run init_sound() ? \n");
 				
-		exit(-1);		
-	}
-	
+                exit(-1);
+        }
 }
 
-void do_something(void)
+
+////////////////////////////////////////// play_color /////////////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: Nada.
+//
+//  Espera.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void do_something (void)
 {
-	int i;
+        int i;
 				
-	for(i=0;i<PLAY_TIME;i++)  // Do someting else for a while (change i)
-	{
-		
-		printf("Playing ...\n"); // show this every 300 ms while playing the sound in background
-	    SDL_Delay(300);
-	}
-	
-	
+        for(i=0; i<PLAY_TIME; i++)                      // Do someting else for a while
+        {
+            printf("Playing ...\n");                    // show this every 300 ms while playing the sound in background
+	    
+            SDL_Delay(300);
+        }
 }
 
-int game_lost(void)
-{
-	return 0;
-}

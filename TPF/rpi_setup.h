@@ -1,14 +1,15 @@
 
 //////////////////////////////////// RPI_SETUP - HEADER ////////////////////////////////////
 
-// ESCRIBIR EL .H!!!!!!!!!!!!!!!!!!!
-//
-
 #ifndef _RPI_SETUP_H_
 #define _RPI_SETUP_H_
 
 #include <wiringPi.h>
+
 #include "libaudio.h"
+#include "simon.h"
+#include "rpi_input.h"
+#include "main.h"
 
 #define CANT_COLORS 4
 

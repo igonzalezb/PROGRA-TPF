@@ -1,15 +1,49 @@
+
+
+///////////////////////////////////////// ALLEGRO_DISPLAY ////////////////////////////////////////////
+                                     // S I M O N - Allegro //
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Trabajo Pr‡ctico Final - Programacion 1
+//
+//  Entrega: 15 de Diciembre de 2016                       ////////////////
+//                                                        //  S I M O N //
+//  Grupo 6:Gonz‡lez Bigliardi, I–aki                    ////////////////
+//          Lago, Valentina
+//          MŸller, Malena
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//                   Muestra en pantalla aquello indicado por la logica del juego.
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 #include "main.h"
+#include "allegro_display.h"
+#include "allegro_setup.h"
+extern int level;
 
 ALLEGRO_DISPLAY * display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-extern int level;
 ALLEGRO_FONT * font = NULL;
 ALLEGRO_SAMPLE *sample_red = NULL;
 ALLEGRO_SAMPLE *sample_blue = NULL;
 ALLEGRO_SAMPLE *sample_green = NULL;
 ALLEGRO_SAMPLE *sample_yellow = NULL;
 
-int configuration_start(void)
+
+////////////////////////////////////// configuration_start ///////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: ERROR o 0.
+//
+//  Se lleva a cabo la configuracion necesaria para el correcto funcionamiento del juego.
+//  
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int configuration_start (void)
 
 {
 	const char *title = { "SIMON" };
@@ -20,14 +54,11 @@ int configuration_start(void)
 
 	ALLEGRO_MOUSE_CURSOR *cursor;
 
-//=====================================================================================================
-//		INICIALIZO ALLEGRO, CREO DISPLAY Y CARGO IMAGENES
-//=====================================================================================================
-
-	if (allegro_setup())
+	if (allegro_setup())                // Inicializacion de allegro, creacion de display y se cargan imagenes.
 	{
 		fprintf(stderr, "Failed to setup allegro!\n");
-		return ERROR;
+		
+                return ERROR;
 	}
 
 	
@@ -92,25 +123,25 @@ int configuration_start(void)
 
 	if (!sample_red) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		return ERROR;
 	}
 	sample_blue = al_load_sample("resources/sounds/blue.wav");
 
 	if (!sample_blue) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		return ERROR;
 	}
 	sample_green = al_load_sample("resources/sounds/green.wav");
 
 	if (!sample_green) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		return ERROR;
 	}
 	sample_yellow = al_load_sample("resources/sounds/yellow.wav");
 
 	if (!sample_yellow) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		return ERROR;
 	}
 
 //================================= TITLE & ICON ========================================================================
@@ -127,7 +158,6 @@ int configuration_start(void)
 		return ERROR;
 	}
 	al_register_event_source(event_queue, al_get_display_event_source(display));
-	//al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 	
@@ -157,6 +187,17 @@ int configuration_start(void)
 	return 0;
 }
 
+/////////////////////allegro_draw_simon_off/////////////////////////////////
+//
+//	Recibe: nada
+//
+//	Devuelve: 
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////////
+
 int allegro_draw_simon_off()
 {
 	al_clear_to_color(al_color_name("white"));
@@ -169,13 +210,24 @@ int allegro_draw_simon_off()
 	al_draw_arc(CENTER_W, CENTER_H, ARC_RADIUS, -PI / 2, PI / 2, al_color_name("lightcoral"), ARC_THICKNESS);
 
 	al_draw_text(font, al_color_name("white"), CENTER_W, CENTER_H, ALLEGRO_ALIGN_CENTER, "S I M O N");
-	//al_draw_text(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: 100");
-
+	
 	al_draw_textf(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: %d",  (level+1));
 	al_flip_display();
 	
 	return 0;
 }
+
+
+/////////////////////allegro_turn_led_on/////////////////////////////////
+//
+//	Recibe: 
+//
+//	Devuelve: nada
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////////
 
 void allegro_turn_led_on(int leds)
 {
@@ -206,12 +258,19 @@ void allegro_turn_led_on(int leds)
 
 
 
-
-
+/////////////////////allegro_draw_bitmap_scaled///////////////////////
+//
+//	Recibe: 
+//
+//	Devuelve: nada
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////////
 
 void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 {
-	//al_draw_bitmap(bitmap, (al_get_display_width(display) - al_get_bitmap_width(bitmap)) / 2, (al_get_display_height(display) - al_get_bitmap_height(bitmap)) / 2, 0);
 
 	al_draw_scaled_bitmap(bitmap,
 		0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), //TAMAÑO DE IMAGEN
@@ -219,6 +278,17 @@ void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 		0);
 }
 
+
+/////////////////////game_lost////////////////////////////////////
+//
+//	Recibe: nada
+//
+//	Devuelve: 
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////////
 
 int game_lost(void)
 {
@@ -239,13 +309,13 @@ int game_lost(void)
 
 	if (!sample_game_over) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		return ERROR;
 	}
 
 
 	al_play_sample(sample_game_over, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 	al_clear_to_color(al_color_name("black"));
-	al_draw_text(font, al_color_name("white"), (CENTER_W), (CENTER_H/2), ALLEGRO_ALIGN_CENTER, "GAME OVER");
+	al_draw_text(font1, al_color_name("white"), (CENTER_W), (CENTER_H/2), ALLEGRO_ALIGN_CENTER, "GAME OVER");
 	al_draw_textf(font2, al_color_name("white"),CENTER_W, CENTER_H, ALLEGRO_ALIGN_CENTER, "LEVEL: %d", (level));
 
 	al_flip_display();
@@ -258,6 +328,18 @@ int game_lost(void)
 	return 0;
 }
 
+
+
+/////////////////////set_color_mode////////////////////////////////
+//
+//	Recibe: 
+//
+//	Devuelve: nada
+//
+//
+//
+//
+////////////////////////////////////////////////////////////////////
 
 void set_color_mode(int color, int color_mode) // color_mode es ON OFF
 {

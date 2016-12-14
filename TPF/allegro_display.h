@@ -1,4 +1,7 @@
 #ifndef ALLEGRO_DISPLAY_H
+#define ALLEGRO_DISPLAY_H
+
+#include "main.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,23 +37,16 @@
 
 int configuration_start(void);
 
-int allegro_setup(void);
-
-void configuration_end(void);
-
-void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP *);
-
-void allegro_draw_button_center(ALLEGRO_BITMAP *);
-
 int allegro_draw_simon_off();
 
-int allegro_menu_inicio();
-
 void allegro_turn_led_on(int led);
+
+void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP *);
 
 int game_lost(void);
 
 void set_color_mode(int color, int color_mode);
 
-#endif // !ALLEGRO_DISPLAY_H
+
+#endif // ALLEGRO_DISPLAY_H
 
