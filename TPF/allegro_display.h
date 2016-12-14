@@ -37,7 +37,7 @@
 
 int configuration_start(void);
 
-int allegro_draw_simon_off();
+void allegro_draw_simon_off(void);
 
 void allegro_turn_led_on(int led);
 

@@ -19,6 +19,7 @@
 
 
 #include "rpi_setup.h"
+#include "rpi_output.h"
 
 
 
@@ -78,11 +79,10 @@ int configuration_start (void)
 
 void configuration_end (void)
 {
-        //end_buffer(&buffer_buttons);
-        //pthread_join(tid_input,NULL); //poner que devuelva indicacion de exito o error. identificar si hubo error
-        //ptread_join(tid_simon,NULL);
-    
-        //return 0;
+	char AudioFile_game_over[] = "./resources/sounds/buzz.wav";
+	play_color(AudioFile_game_over);
+    do_something();
+       
 }
 
 

@@ -4,7 +4,7 @@
                                    // S I M O N - Allegro //
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-//  Trabajo Pr‡ctico Final - Programacion 1
+//  Trabajo Practico Final - Programacion 1
 //
 //  Entrega: 15 de Diciembre de 2016                       ////////////////
 //                                                        //  S I M O N //
@@ -25,15 +25,14 @@ extern ALLEGRO_DISPLAY * display;
 extern ALLEGRO_EVENT_QUEUE *event_queue;
 extern bool exit_simon, player_lost;
 
-void allegro_draw_button_center(ALLEGRO_BITMAP * bitmap);
 ////////////////////////////////////// allegro_menu_inicio  ///////////////////////////////////////////
 //
 //  Recibe: Nada.
 //
-//  Devuelve:
+//  Devuelve: 0 o ERROR
 //
-//  que hace:
-//
+//  Muestra un menu de inicio (con musica de fondo). Cuando se apreta SPACE o se clickea en PLAY
+//  entra al juego.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int allegro_menu_inicio()
@@ -52,7 +51,7 @@ int allegro_menu_inicio()
 
 	bool redraw1 = false;
 
-	//=======FALTA CADA DESTROY ANTES DE ERROR===========================================================================
+//================================================================================================
 	menu_simon = al_load_bitmap("resources/menu_simon.png");
 	if (!menu_simon) {
 		fprintf(stderr, "Failed to create menu_simon!\n");
@@ -87,7 +86,7 @@ int allegro_menu_inicio()
 		al_destroy_font(font_menu);
 		return ERROR;
 	}
-	//=======================================================================================================================================================================
+//=======================================================================================================================================================================
 	allegro_draw_bitmap_scaled(menu_simon);
         
 	al_draw_text(font_menu, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
@@ -96,9 +95,9 @@ int allegro_menu_inicio()
                 
 	al_play_sample(sample_menu, 1.0, 0.0,1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
         
-	int x1, x2, y1, y2, w, h;
+	int x1, x2, y1, y2, w, h;	//Coordenadas del boton Play
         
-	int mx, my;
+	int mx, my;			//Coordenadas del mouse
 
 	while (!do_exit1)
 	{
@@ -107,17 +106,11 @@ int allegro_menu_inicio()
 		al_wait_for_event(event_queue, &ev1);
 
 		if (ev1.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-			//QUIT
 			do_exit1 = true;
                 
 		else if (ev1.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 		{
-			if (!al_acknowledge_resize(ev1.display.source))
-			{
-				fprintf(stderr, "Failed to create event_queue!\n");
-				//DESTROY
-				return ERROR;
-			}
+			al_acknowledge_resize(ev1.display.source);
 			redraw1 = true;
 		}
 
@@ -182,7 +175,6 @@ int allegro_menu_inicio()
 					break;
 
 				case ALLEGRO_KEY_ESCAPE:
-					//QUIT
 					do_exit1 = true;
 					break;
 			}
@@ -190,33 +182,32 @@ int allegro_menu_inicio()
 		if (play && al_is_event_queue_empty(event_queue))
 		{
 			al_stop_samples();
-		//==========================ESTO SE PUDE SACAR=======================================
+		//==========================CARTEL DE LOADING=======================================
 			al_clear_to_color(al_color_name("black"));
 			al_draw_text(font_menu, al_color_name("white"), (CENTER_W), (CENTER_H), ALLEGRO_ALIGN_CENTER, "LOADING...");
 			al_flip_display();
 			al_rest(1.5);
 		//====================================================================================
 			simon_main();
+			
 			if(game_lost())
             		{
                 		return ERROR;
             		}
 			al_flush_event_queue(event_queue);
                         
-			exit_simon = false;
-                        
-			player_lost = false;
-                        
-			//VUELVO AL MENU PRINCIPAL
 			al_play_sample(sample_menu, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
                         
+			exit_simon = false;
+
+			player_lost = false;
+			
 			play = false;
                         
 			redraw1 = true;
                         
 			al_flush_event_queue(event_queue);
                         
-			printf("CP5\n");
 		}
 		if (redraw1 && al_is_event_queue_empty(event_queue))
 		{
@@ -240,23 +231,3 @@ int allegro_menu_inicio()
 	al_destroy_sample(sample_menu);
 	return 0;
 }
-
-
-//////////////////////////////////// allegro_draw_button_center  //////////////////////////////////////
-//
-//  Recibe:
-//
-//  Devuelve: Nada.
-//
-//  que hace:
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void allegro_draw_button_center (ALLEGRO_BITMAP * bitmap)
-{
-		al_draw_scaled_bitmap(bitmap,
-		0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), //TAMAÑO DE IMAGEN
-		PLAY_BUTTON_X, PLAY_BUTTON_Y, al_get_display_width(display)/4, al_get_display_height(display)/6, // TE LO DIBUJA DEL TAMAÑO DEL DISPLAY ACTUAL
-		0);
-}
-

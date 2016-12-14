@@ -54,7 +54,7 @@ int configuration_start (void)
 
 	ALLEGRO_MOUSE_CURSOR *cursor;
 
-	if (allegro_setup())                // Inicializacion de allegro, creacion de display y se cargan imagenes.
+	if (allegro_setup())                // Inicializacion de allegro y su addons
 	{
 		fprintf(stderr, "Failed to setup allegro!\n");
 		
@@ -67,7 +67,7 @@ int configuration_start (void)
 	
 	
 	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED);
-	//ARREGLAR PONER UN MINIMO DISPLAY
+	
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
 		fprintf(stderr, "Failed to create display!\n");
@@ -112,6 +112,7 @@ int configuration_start (void)
 		al_destroy_mouse_cursor(cursor);
 		return ERROR;
 	}
+//==================================CUSTOM-FONTS=========================================================
 
 	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
 	if (!font) {
@@ -122,6 +123,7 @@ int configuration_start (void)
 		al_destroy_mouse_cursor(cursor);
 		return ERROR;
 	}
+//==================================CUSTOM-SAMPLES-FOR-LEDS=========================================================
 	
 	sample_red = al_load_sample("resources/sounds/red.wav");
 
@@ -232,18 +234,18 @@ int configuration_start (void)
 	return 0;
 }
 
-/////////////////////allegro_draw_simon_off/////////////////////////////////
+/////////////////////allegro_draw_simon_off//////////////////////////////////////
 //
 //	Recibe: nada
 //
-//	Devuelve: 
+//	Devuelve: nada
+//
+//	Dibuja el Simon con todos sus leds apagados y el nivel en que estas
 //
 //
-//
-//
-////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 
-int allegro_draw_simon_off()
+void allegro_draw_simon_off(void)
 {
 	al_clear_to_color(al_color_name("white"));
 	al_draw_filled_circle(CENTER_W, CENTER_H, CENTER_H, al_color_name("black"));
@@ -259,17 +261,16 @@ int allegro_draw_simon_off()
 	al_draw_textf(font, al_color_name("black"), LEVEL_X, LEVEL_Y, ALLEGRO_ALIGN_CENTER, "LEVEL: %d",  (level+1));
 	al_flip_display();
 	
-	return 0;
 }
 
 
 /////////////////////allegro_turn_led_on/////////////////////////////////
 //
-//	Recibe: 
+//	Recibe: el led que se desea prender
 //
 //	Devuelve: nada
-//
-//
+//	
+//	Dibuja el led de color deseado prendido
 //
 //
 ////////////////////////////////////////////////////////////////////
@@ -303,16 +304,16 @@ void allegro_turn_led_on(int leds)
 
 
 
-/////////////////////allegro_draw_bitmap_scaled///////////////////////
+/////////////////////allegro_draw_bitmap_scaled/////////////////////////////////////
 //
-//	Recibe: 
+//	Recibe: bitmap que se desea dibujar
 //
 //	Devuelve: nada
 //
+//	Dibuja un bitmap del tamaño actual del display en coordenadas (0,0)
 //
 //
-//
-////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
 void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 {
@@ -328,10 +329,10 @@ void allegro_draw_bitmap_scaled(ALLEGRO_BITMAP * bitmap)
 //
 //	Recibe: nada
 //
-//	Devuelve: 
+//	Devuelve: 0 o ERROR
 //
-//
-//
+//	Dibuja un cartel que dice GAME OVER y el nivel en que se perdio;
+//	ademas reproduce sonido.
 //
 ////////////////////////////////////////////////////////////////////
 
@@ -377,11 +378,11 @@ int game_lost(void)
 
 /////////////////////set_color_mode////////////////////////////////
 //
-//	Recibe: 
+//	Recibe: el numero de led y si se quiere prender o apagar
 //
 //	Devuelve: nada
 //
-//
+//	Llama a la funcion de prender el led o apagar
 //
 //
 ////////////////////////////////////////////////////////////////////

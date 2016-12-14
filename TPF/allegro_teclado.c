@@ -114,8 +114,6 @@ void buttons_teclado_input(void)
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
-			printf("se apreto el color: %d", color);
-                        
 			if (led_pressed[LED_GREEN])
 			{
 				led_pressed[LED_GREEN] = false;
@@ -227,11 +225,11 @@ void buttons_teclado_input(void)
 
 ////////////////////////////////////// getDistance /////////////////////////////////////////
 //
-//  Recibe:
+//  Recibe:	estructura con las coordenadas x y
 //
-//  Devuelve:
+//  Devuelve: la distancia del centro del display al punto
 //
-//  que hace:
+//  Calcula distancia del centro del display a un punto
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
