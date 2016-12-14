@@ -108,14 +108,18 @@ int configuration_start (void)
 		fprintf(stderr, "Failed to set cursor!\n");
 		al_destroy_display(display);
 		al_destroy_bitmap(icon);
-		al_destroy_mouse_cursor(cursor);
 		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
 		return ERROR;
 	}
 
 	font = al_load_ttf_font("resources/phreak.ttf", 34, 0);
 	if (!font) {
 		fprintf(stderr, "Could not load font ttf.\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
 		return ERROR;
 	}
 	
@@ -123,24 +127,50 @@ int configuration_start (void)
 
 	if (!sample_red) {
 		printf("Audio clip sample not loaded!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
 		return ERROR;
 	}
 	sample_blue = al_load_sample("resources/sounds/blue.wav");
 
 	if (!sample_blue) {
 		printf("Audio clip sample not loaded!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
+		al_destroy_sample(sample_red);
 		return ERROR;
 	}
 	sample_green = al_load_sample("resources/sounds/green.wav");
 
 	if (!sample_green) {
 		printf("Audio clip sample not loaded!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
+		al_destroy_sample(sample_red);
+		al_destroy_sample(sample_blue);
 		return ERROR;
 	}
 	sample_yellow = al_load_sample("resources/sounds/yellow.wav");
 
 	if (!sample_yellow) {
 		printf("Audio clip sample not loaded!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
+		al_destroy_sample(sample_red);
+		al_destroy_sample(sample_blue);
+		al_destroy_sample(sample_green);
 		return ERROR;
 	}
 
@@ -154,7 +184,15 @@ int configuration_start (void)
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "Failed to create event_queue!\n");
-		//DESTROY
+		al_destroy_display(display);
+		al_destroy_bitmap(icon);
+		al_destroy_bitmap(cursor_image);
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
+		al_destroy_sample(sample_red);
+		al_destroy_sample(sample_blue);
+		al_destroy_sample(sample_green);
+		al_destroy_sample(sample_yellow);
 		return ERROR;
 	}
 	al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -169,20 +207,27 @@ int configuration_start (void)
 		fprintf(stderr, "Failed allegro_welcome!\n");
 		al_destroy_display(display);
 		al_destroy_bitmap(icon);
-		al_destroy_mouse_cursor(cursor);
 		al_destroy_bitmap(cursor_image);
-		//
-		configuration_end();
+		al_destroy_mouse_cursor(cursor);
+		al_destroy_font(font);
+		al_destroy_sample(sample_red);
+		al_destroy_sample(sample_blue);
+		al_destroy_sample(sample_green);
+		al_destroy_sample(sample_yellow);
+		al_destroy_event_queue(event_queue);
 		return ERROR;
 	}
 	
-	//FIJARSE SI FALTA ALGUNO
 	al_destroy_display(display);
 	al_destroy_bitmap(icon);
-	al_destroy_mouse_cursor(cursor);
 	al_destroy_bitmap(cursor_image);
+	al_destroy_mouse_cursor(cursor);
+	al_destroy_font(font);
+	al_destroy_sample(sample_red);
+	al_destroy_sample(sample_blue);
+	al_destroy_sample(sample_green);
+	al_destroy_sample(sample_yellow);
 	al_destroy_event_queue(event_queue);
-	configuration_end();
 	
 	return 0;
 }

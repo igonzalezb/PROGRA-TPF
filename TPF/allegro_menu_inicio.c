@@ -62,6 +62,7 @@ int allegro_menu_inicio()
 	menu_simon_play = al_load_bitmap("resources/menu_simon_play.png");
 	if (!menu_simon_play) {
 		fprintf(stderr, "Failed to create menu_simon_play!\n");
+		al_destroy_bitmap(menu_simon);
 		return ERROR;
 	}
 
@@ -71,6 +72,8 @@ int allegro_menu_inicio()
 
 	if (!font_menu) {
 		fprintf(stderr, "Could not load 'atari.ttf'.\n");
+		al_destroy_bitmap(menu_simon);
+		al_destroy_bitmap(menu_simon_play);
 		return ERROR;
 	}
 
@@ -79,7 +82,10 @@ int allegro_menu_inicio()
 
 	if (!sample_menu) {
 		printf("Audio clip sample not loaded!\n");
-		return -1;
+		al_destroy_bitmap(menu_simon);
+		al_destroy_bitmap(menu_simon_play);
+		al_destroy_font(font_menu);
+		return ERROR;
 	}
 	//=======================================================================================================================================================================
 	allegro_draw_bitmap_scaled(menu_simon);
@@ -87,9 +93,7 @@ int allegro_menu_inicio()
 	al_draw_text(font_menu, al_color_name("white"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
         
 	al_flip_display();
-        
-	printf("CP2\n");
-        
+                
 	al_play_sample(sample_menu, 1.0, 0.0,1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
         
 	int x1, x2, y1, y2, w, h;
@@ -227,11 +231,13 @@ int allegro_menu_inicio()
 			redraw1 = false;
                         
 			play = false;
-                        
-			printf("CP4\n");
 		}
 	}
-	//DISTROY de esta funcion
+	
+	al_destroy_bitmap(menu_simon);
+	al_destroy_bitmap(menu_simon_play);
+	al_destroy_font(font_menu);
+	al_destroy_sample(sample_menu);
 	return 0;
 }
 

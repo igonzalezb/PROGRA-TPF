@@ -1,4 +1,5 @@
 #define _ALLEGRO_PC_
+//#define _RASPBERRY_PI_
 
 #ifndef MAIN_H
 #define MAIN_H
@@ -6,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 
 
 enum platform { RASPBERRYPI, ALLEGRO };
@@ -24,8 +24,6 @@ enum leds { LED_RED, LED_GREEN, LED_BLUE, LED_YELLOW, LED_ON_OFF};
 
 enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP };
 
-
-#endif // MAIN_H
 
 #ifdef _RASPBERRY_PI_
 #include <stdbool.h>
@@ -49,3 +47,4 @@ enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP }
 #define WAIT_T al_rest
 #endif
 
+#endif // MAIN_H

@@ -27,13 +27,13 @@
 #define CENTER_W	(al_get_display_width(display) / 2)
 #define CENTER_H	(al_get_display_height(display) / 2)
 
-//===================FIJARSE DE USAR OTRA COSA EN VEZ DEL HEIGHT================
+
 #define ARC_RADIUS	(al_get_display_height(display) / 3)
 #define ARC_THICKNESS	(al_get_display_height(display) / 4)
 //==============================================================================
 #define LEVEL_X	(al_get_display_width(display) / 6)
 #define LEVEL_Y	((al_get_display_height(display) / 16) * 15)
-
+//==============================================================================
 
 int configuration_start(void);
 
