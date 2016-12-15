@@ -160,7 +160,7 @@ void buttons_teclado_input(void)
 					allegro_turn_led_on(LED_GREEN);
 					al_flip_display();
 					printf("UP\n");
-					comparacion_validacion(LED_GREEN);
+					
 					break;
 
 				case ALLEGRO_KEY_DOWN:
@@ -168,7 +168,7 @@ void buttons_teclado_input(void)
 					allegro_turn_led_on(LED_BLUE);
 					al_flip_display();
 					printf("DOWM\n");
-					comparacion_validacion(LED_BLUE);
+					
 					break;
 
 				case ALLEGRO_KEY_LEFT:
@@ -176,14 +176,14 @@ void buttons_teclado_input(void)
 					allegro_turn_led_on(LED_YELLOW);
 					al_flip_display();
 					printf("LEFT\n");
-					comparacion_validacion(LED_YELLOW);
+					
 					break;
 				case ALLEGRO_KEY_RIGHT:
 					led_pressed[KEY_RIGHT] = true;
 					allegro_turn_led_on(LED_RED);
 					al_flip_display();
 					printf("RIGHT\n");
-					comparacion_validacion(LED_RED);
+					
 					break;
 			}
 		}
@@ -191,11 +191,24 @@ void buttons_teclado_input(void)
 		{
 			switch (ev.keyboard.keycode)
 			{
-                                case ALLEGRO_KEY_SPACE: case ALLEGRO_KEY_UP: case ALLEGRO_KEY_DOWN: case ALLEGRO_KEY_LEFT: case ALLEGRO_KEY_RIGHT:
+                                case ALLEGRO_KEY_UP:  
                                         led_pressed[LED_GREEN] = false;
-                                        led_pressed[LED_RED] = false;
+					comparacion_validacion(LED_GREEN);
+					redraw = true;
+					break;
+				case ALLEGRO_KEY_DOWN:
                                         led_pressed[LED_BLUE] = false;
+					comparacion_validacion(LED_BLUE);
+					redraw = true;
+					break;
+				case ALLEGRO_KEY_LEFT:
                                         led_pressed[LED_YELLOW] = false;
+					comparacion_validacion(LED_YELLOW);
+					redraw = true;
+					break;
+				case ALLEGRO_KEY_RIGHT:
+                                        led_pressed[LED_RED] = false;
+					comparacion_validacion(LED_RED);
                                         redraw = true;
                                         break;
 
