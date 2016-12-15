@@ -76,9 +76,7 @@ int configuration_start (void)
 		fprintf(stderr, "Failed to create display!\n");
 		return ERROR;
 	}
-	//al_get_window_constraints(display, &min_w, &min_h, &max_w, &max_h);
-	//al_set_window_constraints(display, SCREEN_W, SCREEN_H, max_w, max_h);
-
+	
 	icon = al_load_bitmap("resources/simon_icon.png");
 	if (!icon) {
 		fprintf(stderr, "Failed to create icon!\n");

@@ -53,8 +53,9 @@ void buttons_teclado_input(void)
 	while (!exit_simon && !player_lost && !exit_teclado)
 	{
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(event_queue, &ev);
 		int color;
+		al_wait_for_event(event_queue, &ev);
+		
 
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
