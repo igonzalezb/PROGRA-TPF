@@ -27,19 +27,7 @@
 *.i*86
 *.x86_64
 *.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.suo
-*.db
-*.sln
-*.filters
-*.vcxproj
-*.opendb
+/TPF/TPF.VC.VC.opendb
+/TPF/TPF.VC.db
 /TPF/packages
-*.config
-/TPF/Debug
-/TPF/Release
-/TPF/x64
-/TPF/TPF.APS
+/TPF/.vs/TPF/v14
