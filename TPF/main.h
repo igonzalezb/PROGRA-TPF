@@ -38,8 +38,8 @@ enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP }
 
 
 #ifdef _ALLEGRO_PC_	
-#include "allegro_display.h"
-#include "allegro_teclado.h"
+#include "allegro_output.h"
+#include "allegro_input.h"
 #include "allegro_menu_inicio.h"
 #include "allegro_setup.h"
 #define BASE_TIME 0.5

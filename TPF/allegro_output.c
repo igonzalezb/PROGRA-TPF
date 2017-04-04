@@ -19,7 +19,7 @@
 
 
 #include "main.h"
-#include "allegro_display.h"
+#include "allegro_output.h"
 #include "allegro_setup.h"
 extern int level;
 
@@ -58,25 +58,25 @@ int configuration_start (void)
 	{
 		fprintf(stderr, "Failed to setup allegro!\n");
 		
-                return ERROR;
+        return ERROR;
 	}
 
 	
-//===============================DISPLAY=============================================================================
+//===============================DISPLAY===================================================================
 	int min_w, min_h, max_w, max_h;
 	
 	
 	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_WINDOWED);
 	
-	al_get_window_constraints(display, &min_w, &min_h, &max_w, &max_h);
-	al_set_window_constraints(display, SCREEN_W, SCREEN_H, max_w, max_h);
-
+    al_get_window_constraints(display, &min_w, &min_h, &max_w, &max_h);
+    al_set_window_constraints(display, SCREEN_W, SCREEN_H, max_w, max_h);
+    
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
 		fprintf(stderr, "Failed to create display!\n");
 		return ERROR;
 	}
-	
+
 	icon = al_load_bitmap("resources/simon_icon.png");
 	if (!icon) {
 		fprintf(stderr, "Failed to create icon!\n");
@@ -124,7 +124,7 @@ int configuration_start (void)
 		al_destroy_mouse_cursor(cursor);
 		return ERROR;
 	}
-//==================================CUSTOM-SAMPLES-FOR-LEDS=========================================================
+//==================================CUSTOM-SAMPLES-FOR-LEDS==============================================
 	
 	sample_red = al_load_sample("resources/sounds/red.wav");
 

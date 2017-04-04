@@ -10,6 +10,7 @@
 #include "simon.h"
 #include "rpi_input.h"
 #include "main.h"
+#include "rpi_output.h"
 
 #define CANT_COLORS 4
 

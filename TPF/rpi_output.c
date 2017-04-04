@@ -129,3 +129,67 @@ void do_something (void)
         }
 }
 
+
+////////////////////////////////////////// leds_game /////////////////////////////////////////////////
+//
+//  Recibe: Nada.
+//
+//  Devuelve: Nada.
+//
+//  Juego de leds para inicio y final del juego
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void leds_game ()
+{
+    int i;
+    
+    int round;
+    
+    for (round = 0; round <= 2; round++)
+    {
+        for (i = RED; i <= YELLOW; i++)
+        {
+            digitalWrite (leds[i].pin, HIGH);
+        }
+        
+        WAIT_T(100000);
+        
+        for (i = RED; i <= YELLOW; i++)
+        {
+            digitalWrite (leds[i].pin, LOW);
+        }
+    }
+    
+    for (round = 0; round < 2; round++)
+    {
+        for (i = RED; i <= YELLOW; i++)
+        {
+            digitalWrite (leds[i].pin, HIGH);
+            
+            WAIT_T(100000);
+            
+            digitalWrite (leds[i].pin, LOW);
+            
+            WAIT_T(100000);
+        }
+    }
+    
+    for (round = 0; round <= 2; round++)
+    {
+        for (i = RED; i <= YELLOW; i++)
+        {
+            digitalWrite (leds[i].pin, HIGH);
+        }
+        
+        WAIT_T(100000);
+        
+        for (i = RED; i <= YELLOW; i++)
+        {
+            digitalWrite (leds[i].pin, LOW);
+        }
+    }
+    
+    WAIT_T(200000);
+}
+

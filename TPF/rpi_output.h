@@ -13,6 +13,7 @@
 void set_color_mode (int color, int color_mode);
 void play_color(char * AudioFile);
 void do_something(void);
+void leds_game (void);
 
 
 #endif // _RPI_OUTPUT_H_

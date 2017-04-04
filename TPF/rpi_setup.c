@@ -19,8 +19,6 @@
 
 
 #include "rpi_setup.h"
-#include "rpi_output.h"
-
 
 
 char AudioFile_RED[] = "./resources/sounds/red.wav";
@@ -60,6 +58,8 @@ int configuration_start (void)
         pin_out_or_in ();
     
         set_pin_zero_or_one ();
+    
+        leds_game ();
         
         simon_main ();
             
@@ -80,9 +80,12 @@ int configuration_start (void)
 void configuration_end (void)
 {
 	char AudioFile_game_over[] = "./resources/sounds/buzz.wav";
+    
 	play_color(AudioFile_game_over);
+    
     do_something();
-       
+    
+    leds_game ();
 }
 
 

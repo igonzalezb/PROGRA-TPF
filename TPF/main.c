@@ -39,12 +39,14 @@
 
 int main(void)
 {
-        if (configuration_start() == ERROR)
-        {
-                printf ("Failed to configure and start the game. Please try again");
-        }
+        configuration_start();
     
         configuration_end();
     
         return 0;
 }
+
+
+
+
+

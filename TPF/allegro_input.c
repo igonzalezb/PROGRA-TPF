@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "allegro_teclado.h"
+#include "allegro_input.h"
 
 extern ALLEGRO_DISPLAY * display;
 extern ALLEGRO_EVENT_QUEUE *event_queue;

@@ -1,5 +1,5 @@
-#ifndef ALLEGRO_DISPLAY_H
-#define ALLEGRO_DISPLAY_H
+#ifndef ALLEGRO_OUTPUT_H
+#define ALLEGRO_OUTPUT_H
 
 #include "main.h"
 
@@ -48,5 +48,5 @@ int game_lost(void);
 void set_color_mode(int color, int color_mode);
 
 
-#endif // ALLEGRO_DISPLAY_H
+#endif // ALLEGRO_OUTPUT_H
 

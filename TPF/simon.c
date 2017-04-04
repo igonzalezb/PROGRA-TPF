@@ -58,17 +58,12 @@ void simon_main (void)
             
                 exit_teclado = false;
             
-                printf("simon for\n");
-            
                 if (time >= MIN_TIME)
                 {
                         time = time - MIN_TIME;
                 }
         }
-    
-        game_over (level); //definir y declarar esta funcion
-    
-        printf("Perdiste\n");
+        game_over (level);
 }
 
 
@@ -175,7 +170,7 @@ int comparacion_validacion (int color)
                 printf("validacion perdiste\n");
         }
 	
-        printf("salgo de validacion\n");
+        printf("salgo de val idacion\n");
     
         return 0;
 }

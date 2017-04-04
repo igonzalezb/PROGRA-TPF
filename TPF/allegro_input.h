@@ -1,5 +1,6 @@
-#ifndef ALLEGRO_TECLADO_H
-#define ALLEGRO_TECLADO_H
+
+#ifndef ALLEGRO_INPUT_H
+#define ALLEGRO_INPUT_H
 
 #include "main.h" 
 #include "simon.h"
@@ -26,4 +27,4 @@ struct Point
 void buttons_teclado_input(void);
 double getDistance(struct Point a);
 
-#endif // ALLEGRO_TECLADO_H
+#endif // ALLEGRO_INPUT_H
