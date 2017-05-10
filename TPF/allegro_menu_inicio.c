@@ -117,8 +117,8 @@ int allegro_menu_inicio()
 		else if (ev1.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
 			al_get_text_dimensions(font_menu, ": : PLAY : :", &x1, &y1, &w, &h);
-                        
-			printf("x1: %X", x1);
+			//printf("x1: %X", x1);
+			
                         
 			x1 = PLAY_BUTTON_X - w / 2;
                         
@@ -131,8 +131,8 @@ int allegro_menu_inicio()
 			mx = ev1.mouse.x;
                         
 			my = ev1.mouse.y;
-                        
-			printf("mx %X, my %X\n", mx, my);
+			//printf("mx %X, my %X\n", mx, my);
+			
 			
 			if (((x1 <= mx) && (mx <= x2))  && ((my >= y1) && (my <= y2)))
 			{
@@ -161,8 +161,8 @@ int allegro_menu_inicio()
 				al_draw_text(font_menu, al_color_name("green"), PLAY_BUTTON_X, PLAY_BUTTON_Y, ALLEGRO_ALIGN_CENTER, ": : PLAY : :");
                                 
 				al_flip_display();
-                                
-				printf("SPACE\n");
+				//printf("SPACE\n");                            
+				
 			}
 		}
 		else if (ev1.type == ALLEGRO_EVENT_KEY_UP)

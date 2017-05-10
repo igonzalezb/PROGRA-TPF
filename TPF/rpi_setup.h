@@ -28,4 +28,5 @@ void configuration_end (void);
 void pin_out_or_in (void);
 void set_pin_zero_or_one (void);
 
+
 #endif // _RPI_SETUP_H_

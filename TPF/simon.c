@@ -145,32 +145,37 @@ void muestra_secuencia (int secuencia[], int level, double time)
 
 int comparacion_validacion (int color)
 {
-        printf ("color(click): %d, secuencia[]: %d\n", color, secuencia[input_color_number]);
-    
-        printf("numero de color %d\n", input_color_number);
+
+	//printf("color(click): %d, secuencia[]: %d\n", color, secuencia[input_color_number]);
+
+	//printf("numero de color %d\n", input_color_number);
+
+	
     
         if (input_color_number == level)
         {
                 exit_teclado = true;
-		
-                printf("validacion secuencia final\n");
+
+		//printf("validacion secuencia final\n");
+
+                
         }
     
         if (color == secuencia[input_color_number])
         {
                 ++input_color_number;
-		
-                printf("validacion bien, siguiente\n");
+		//printf("validacion bien, siguiente\n");
+                
         }
 	
         else if (color != secuencia[input_color_number])
         {
                 player_lost = true;
-		
-                printf("validacion perdiste\n");
+		//printf("validacion perdiste\n");
         }
 	
-        printf("salgo de val idacion\n");
+	//printf("salgo de validacion\n");
+       
     
         return 0;
 }

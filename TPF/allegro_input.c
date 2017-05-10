@@ -159,7 +159,9 @@ void buttons_teclado_input(void)
 					led_pressed[KEY_UP] = true;
 					allegro_turn_led_on(LED_GREEN);
 					al_flip_display();
-					printf("UP\n");
+
+				//printf("UP\n");
+
 					
 					break;
 
@@ -167,7 +169,8 @@ void buttons_teclado_input(void)
 					led_pressed[KEY_DOWN] = true;
 					allegro_turn_led_on(LED_BLUE);
 					al_flip_display();
-					printf("DOWM\n");
+					//printf("DOWM\n");
+					
 					
 					break;
 
@@ -175,15 +178,14 @@ void buttons_teclado_input(void)
 					led_pressed[KEY_LEFT] = true;
 					allegro_turn_led_on(LED_YELLOW);
 					al_flip_display();
-					printf("LEFT\n");
+					//printf("LEFT\n");
 					
 					break;
 				case ALLEGRO_KEY_RIGHT:
 					led_pressed[KEY_RIGHT] = true;
 					allegro_turn_led_on(LED_RED);
 					al_flip_display();
-					printf("RIGHT\n");
-					
+					//printf("RIGHT\n");					
 					break;
 			}
 		}

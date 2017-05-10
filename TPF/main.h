@@ -1,4 +1,4 @@
-#define _ALLEGRO_PC_
+#define	_ALLEGRO_PC_
 //#define _RASPBERRY_PI_
 
 #ifndef MAIN_H
@@ -36,8 +36,8 @@ enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP }
 #define WAIT_T	usleep
 #endif
 
+#ifdef _ALLEGRO_PC_
 
-#ifdef _ALLEGRO_PC_	
 #include "allegro_output.h"
 #include "allegro_input.h"
 #include "allegro_menu_inicio.h"
@@ -45,6 +45,7 @@ enum buttons { BUTTON_RED, BUTTON_GREEN, BUTTON_BLUE, BUTTON_YELLOW, BUTTON_UP }
 #define BASE_TIME 0.5
 #define MIN_TIME 0.01
 #define WAIT_T al_rest
+
 #endif
 
 #endif // MAIN_H

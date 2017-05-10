@@ -119,7 +119,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -149,7 +149,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -167,7 +167,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -178,31 +178,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="allegro_display.h" />
+    <ClInclude Include="allegro_input.h" />
     <ClInclude Include="allegro_menu_inicio.h" />
+    <ClInclude Include="allegro_output.h" />
     <ClInclude Include="allegro_setup.h" />
-    <ClInclude Include="allegro_teclado.h" />
-    <ClInclude Include="libaudio.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="rpi_input.h" />
-    <ClInclude Include="rpi_output.h" />
-    <ClInclude Include="rpi_setup.h" />
     <ClInclude Include="simon.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="allegro_display.c" />
+    <ClCompile Include="allegro_input.c" />
     <ClCompile Include="allegro_menu_inicio.c" />
+    <ClCompile Include="allegro_output.c" />
     <ClCompile Include="allegro_setup.c" />
-    <ClCompile Include="allegro_teclado.c" />
-    <ClCompile Include="libaudio.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="rpi_input.c" />
-    <ClCompile Include="rpi_output.c" />
-    <ClCompile Include="rpi_setup.c" />
     <ClCompile Include="simon.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="highest_score.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
