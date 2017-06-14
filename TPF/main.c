@@ -24,7 +24,7 @@
 
 
 #include "main.h"
-
+#include <Windows.h>
 
 ///////////////////////main//////////////////////////
 //
@@ -39,6 +39,9 @@
 
 int main(void)
 {
+		
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+
         configuration_start();
     
         configuration_end();
